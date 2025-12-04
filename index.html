@@ -136,8 +136,17 @@
 
     <main class="pt-[90px] px-2 space-y-3">
         
-        <div class="relative w-full aspect-[2/1] rounded-xl overflow-hidden border border-sk-gold/50 shadow-lg">
-            <img src="https://placehold.co/800x400/052e1c/ffd700?text=SK111+BRAND+PARTNERSHIP" class="w-full h-full object-cover">
+        <div class="relative w-full aspect-[2/1] rounded-xl overflow-hidden border border-sk-gold/50 shadow-lg bg-sk-dark">
+            <div id="hero-slider" class="relative w-full h-full">
+                <img src="header1.jpg" class="slider-image absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100" alt="Banner 1">
+                <img src="header2.jpg" class="slider-image absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Banner 2">
+                <img src="header3.jpg" class="slider-image absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Banner 3">
+            </div>
+            <div class="absolute bottom-2 left-0 right-0 flex justify-center gap-1 z-10">
+                <div class="slider-dot w-1.5 h-1.5 rounded-full bg-white opacity-100"></div>
+                <div class="slider-dot w-1.5 h-1.5 rounded-full bg-white opacity-50"></div>
+                <div class="slider-dot w-1.5 h-1.5 rounded-full bg-white opacity-50"></div>
+            </div>
         </div>
 
         <div class="bg-black/30 rounded-full py-1 px-3 flex items-center gap-2 border border-white/10 overflow-hidden">
@@ -259,21 +268,15 @@
             buttons.forEach(btn => {
                 const iconBox = btn.querySelector('.icon-box');
                 const text = btn.querySelector('span');
-                // img variable is no longer needed for grayscale toggling
-                // const img = btn.querySelector('img'); 
 
                 if(btn.id === 'tab-' + category) {
                     // Active State (White Background with Gold Border)
-                    // Removed opacity change
                     iconBox.className = 'icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center shadow-[0_0_10px_#ffd700] border-2 border-yellow-400 transition-all';
                     text.className = 'text-[10px] text-white font-bold';
-                    // img.classList.remove('grayscale'); // Removed
                 } else {
                     // Inactive State (White Background with Gray Border)
-                    // Removed opacity change
                     iconBox.className = 'icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400 transition-all';
                     text.className = 'text-[10px] text-gray-400';
-                    // img.classList.add('grayscale'); // Removed - This was causing the issue
                 }
             });
 
@@ -299,6 +302,30 @@
                 minimumFractionDigits: 2, maximumFractionDigits: 2
             });
             requestAnimationFrame(animateJackpot);
+        }
+
+        // --- 3. SLIDER ANIMATION (New) ---
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slider-image');
+        const dots = document.querySelectorAll('.slider-dot');
+        const totalSlides = slides.length;
+
+        function nextSlide() {
+            // Hide current
+            slides[currentSlide].classList.replace('opacity-100', 'opacity-0');
+            dots[currentSlide].classList.replace('opacity-100', 'opacity-50');
+            
+            // Calculate next index
+            currentSlide = (currentSlide + 1) % totalSlides;
+            
+            // Show next
+            slides[currentSlide].classList.replace('opacity-0', 'opacity-100');
+            dots[currentSlide].classList.replace('opacity-50', 'opacity-100');
+        }
+
+        // Change slide every 3 seconds
+        if(slides.length > 0) {
+            setInterval(nextSlide, 3000);
         }
 
         // --- INIT ---
