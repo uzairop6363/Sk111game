@@ -159,16 +159,21 @@
         </div>
 
         <div class="grid grid-cols-3 gap-2">
-            <div class="bg-sk-dark border border-white/10 h-14 rounded-lg flex items-center justify-center relative overflow-hidden">
-                <span class="absolute top-0 left-0 bg-sk-red text-[8px] px-1 font-bold">NEW</span>
-                <span class="text-[10px] font-bold text-gray-300">ZH88.com</span>
-            </div>
-            <div class="bg-sk-dark border border-white/10 h-14 rounded-lg flex items-center justify-center"><span class="text-[10px] font-bold text-gray-300">777AD.com</span></div>
-            <div class="bg-sk-dark border border-white/10 h-14 rounded-lg flex items-center justify-center"><span class="text-[10px] font-bold text-gray-300">777fe.com</span></div>
+            <a href="https://www.bk66app.org/m/register?r=qhg6990" target="_blank" class="block h-14 rounded-lg overflow-hidden border border-white/10 relative group hover:border-sk-gold transition">
+                <img src="bk66.jpg" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition" alt="ZH88">
+                <span class="absolute top-0 left-0 bg-sk-red text-[8px] px-1 font-bold text-white z-10">NEW</span>
+            </a>
+            
+            <a href="https://666w66.com" target="_blank" class="block h-14 rounded-lg overflow-hidden border border-white/10 relative group hover:border-sk-gold transition">
+                <img src="666w.jpg" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition" alt="777AD">
+            </a>
+            
+            <a href="https://666p6.com" target="_blank" class="block h-14 rounded-lg overflow-hidden border border-white/10 relative group hover:border-sk-gold transition">
+                <img src="666p.jpg" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition" alt="777FE">
+            </a>
         </div>
 
         <div class="flex items-center gap-3 overflow-x-auto no-scrollbar py-2 px-1">
-            
             <button onclick="filterGames('hot')" id="tab-hot" class="category-btn flex flex-col items-center min-w-[55px] gap-1 group">
                 <div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center shadow-[0_0_10px_#ffd700] border-2 border-yellow-400">
                     <img src="hot.jpg" alt="Hot" class="w-full h-full object-contain">
@@ -270,17 +275,14 @@
                 const text = btn.querySelector('span');
 
                 if(btn.id === 'tab-' + category) {
-                    // Active State (White Background with Gold Border)
                     iconBox.className = 'icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center shadow-[0_0_10px_#ffd700] border-2 border-yellow-400 transition-all';
                     text.className = 'text-[10px] text-white font-bold';
                 } else {
-                    // Inactive State (White Background with Gray Border)
                     iconBox.className = 'icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400 transition-all';
                     text.className = 'text-[10px] text-gray-400';
                 }
             });
 
-            // Render Games
             container.innerHTML = '';
             const filtered = gamesDB.filter(g => category === 'hot' ? g.hot : g.type === category);
             
@@ -304,26 +306,21 @@
             requestAnimationFrame(animateJackpot);
         }
 
-        // --- 3. SLIDER ANIMATION (New) ---
+        // --- 3. SLIDER ANIMATION ---
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slider-image');
         const dots = document.querySelectorAll('.slider-dot');
         const totalSlides = slides.length;
 
         function nextSlide() {
-            // Hide current
+            if (slides.length === 0) return;
             slides[currentSlide].classList.replace('opacity-100', 'opacity-0');
             dots[currentSlide].classList.replace('opacity-100', 'opacity-50');
-            
-            // Calculate next index
             currentSlide = (currentSlide + 1) % totalSlides;
-            
-            // Show next
             slides[currentSlide].classList.replace('opacity-0', 'opacity-100');
             dots[currentSlide].classList.replace('opacity-50', 'opacity-100');
         }
 
-        // Change slide every 3 seconds
         if(slides.length > 0) {
             setInterval(nextSlide, 3000);
         }
