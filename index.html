@@ -167,44 +167,44 @@
                 <span class="text-[10px] font-bold text-white">Hot</span>
             </button>
 
-            <button onclick="filterGames('slots')" id="tab-slots" class="category-btn flex flex-col items-center min-w-[55px] gap-1 opacity-60">
+            <button onclick="filterGames('slots')" id="tab-slots" class="category-btn flex flex-col items-center min-w-[55px] gap-1">
                 <div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400">
-                    <img src="slot.jpg" alt="Slot" class="w-full h-full object-contain filter grayscale">
+                    <img src="slot.jpg" alt="Slot" class="w-full h-full object-contain">
                 </div>
                 <span class="text-[10px] text-gray-400">Slot</span>
             </button>
 
-            <button onclick="filterGames('cards')" id="tab-cards" class="category-btn flex flex-col items-center min-w-[55px] gap-1 opacity-60">
+            <button onclick="filterGames('cards')" id="tab-cards" class="category-btn flex flex-col items-center min-w-[55px] gap-1">
                 <div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400">
-                    <img src="cards.jpg" alt="Cards" class="w-full h-full object-contain filter grayscale">
+                    <img src="cards.jpg" alt="Cards" class="w-full h-full object-contain">
                 </div>
                 <span class="text-[10px] text-gray-400">Cards</span>
             </button>
 
-            <button onclick="filterGames('blockchain')" id="tab-blockchain" class="category-btn flex flex-col items-center min-w-[55px] gap-1 opacity-60">
+            <button onclick="filterGames('blockchain')" id="tab-blockchain" class="category-btn flex flex-col items-center min-w-[55px] gap-1">
                 <div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400">
-                    <img src="blockchain.jpg" alt="Blockchain" class="w-full h-full object-contain filter grayscale">
+                    <img src="blockchain.jpg" alt="Blockchain" class="w-full h-full object-contain">
                 </div>
                 <span class="text-[10px] text-gray-400">Blockchain</span>
             </button>
 
-            <button onclick="filterGames('fishing')" id="tab-fishing" class="category-btn flex flex-col items-center min-w-[55px] gap-1 opacity-60">
+            <button onclick="filterGames('fishing')" id="tab-fishing" class="category-btn flex flex-col items-center min-w-[55px] gap-1">
                 <div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400">
-                    <img src="fishing.jpg" alt="Fishing" class="w-full h-full object-contain filter grayscale">
+                    <img src="fishing.jpg" alt="Fishing" class="w-full h-full object-contain">
                 </div>
                 <span class="text-[10px] text-gray-400">Fishing</span>
             </button>
 
-            <button onclick="filterGames('live')" id="tab-live" class="category-btn flex flex-col items-center min-w-[55px] gap-1 opacity-60">
+            <button onclick="filterGames('live')" id="tab-live" class="category-btn flex flex-col items-center min-w-[55px] gap-1">
                 <div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400">
-                    <img src="live.jpg" alt="Live" class="w-full h-full object-contain filter grayscale">
+                    <img src="live.jpg" alt="Live" class="w-full h-full object-contain">
                 </div>
                 <span class="text-[10px] text-gray-400">Live</span>
             </button>
 
-            <button onclick="filterGames('sports')" id="tab-sports" class="category-btn flex flex-col items-center min-w-[55px] gap-1 opacity-60">
+            <button onclick="filterGames('sports')" id="tab-sports" class="category-btn flex flex-col items-center min-w-[55px] gap-1">
                 <div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400">
-                    <img src="sports.jpg" alt="Sports" class="w-full h-full object-contain filter grayscale">
+                    <img src="sports.jpg" alt="Sports" class="w-full h-full object-contain">
                 </div>
                 <span class="text-[10px] text-gray-400">Sports</span>
             </button>
@@ -259,20 +259,21 @@
             buttons.forEach(btn => {
                 const iconBox = btn.querySelector('.icon-box');
                 const text = btn.querySelector('span');
-                const img = btn.querySelector('img');
+                // img variable is no longer needed for grayscale toggling
+                // const img = btn.querySelector('img'); 
 
                 if(btn.id === 'tab-' + category) {
                     // Active State (White Background with Gold Border)
-                    btn.style.opacity = '1';
+                    // Removed opacity change
                     iconBox.className = 'icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center shadow-[0_0_10px_#ffd700] border-2 border-yellow-400 transition-all';
                     text.className = 'text-[10px] text-white font-bold';
-                    img.classList.remove('grayscale');
+                    // img.classList.remove('grayscale'); // Removed
                 } else {
                     // Inactive State (White Background with Gray Border)
-                    btn.style.opacity = '0.6';
+                    // Removed opacity change
                     iconBox.className = 'icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400 transition-all';
                     text.className = 'text-[10px] text-gray-400';
-                    img.classList.add('grayscale');
+                    // img.classList.add('grayscale'); // Removed - This was causing the issue
                 }
             });
 
