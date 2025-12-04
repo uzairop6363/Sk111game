@@ -40,10 +40,12 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
+        /* Gold Gradient Text Style */
         .text-gold-gradient {
-            background: linear-gradient(to bottom, #fff8db, #ffd700);
+            background: linear-gradient(to bottom, #fff8db, #ffd700, #ccaadd);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.5));
         }
 
         /* Animations */
@@ -160,14 +162,14 @@
 
         <div class="grid grid-cols-3 gap-2">
             <a href="https://www.bk66app.org/m/register?r=qhg6990" target="_blank" class="block h-14 rounded-lg overflow-hidden border border-white/10 relative group hover:border-sk-gold transition">
-                <img src="bk66.jpg" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition" alt="ZH88">
+                <img src="bk66.jpg" class="w-full h-full object-cover opacity-100 transition" alt="ZH88">
                 <span class="absolute top-0 left-0 bg-sk-red text-[8px] px-1 font-bold text-white z-10">NEW</span>
             </a>
             <a href="https://666w66.com" target="_blank" class="block h-14 rounded-lg overflow-hidden border border-white/10 relative group hover:border-sk-gold transition">
-                <img src="666w.jpg" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition" alt="777AD">
+                <img src="666w.jpg" class="w-full h-full object-cover opacity-100 transition" alt="777AD">
             </a>
             <a href="https://666p6.com" target="_blank" class="block h-14 rounded-lg overflow-hidden border border-white/10 relative group hover:border-sk-gold transition">
-                <img src="666p.jpg" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition" alt="777FE">
+                <img src="666p.jpg" class="w-full h-full object-cover opacity-100 transition" alt="777FE">
             </a>
         </div>
 
@@ -219,9 +221,9 @@
         <div class="relative w-full h-32 rounded-lg overflow-hidden shadow-[0_0_15px_#ffd70033] flex flex-col items-center justify-center border border-sk-gold/50 my-2 bg-sk-dark">
             <img src="jackpot.jpg" class="absolute inset-0 w-full h-full object-cover z-0" alt="Jackpot Background">
             
-            <div class="relative z-10 text-center drop-shadow-[0_2px_4px_rgba(0,0,0,1)]">
-                <h3 class="text-sk-gold text-xs font-black uppercase tracking-[0.2em] mb-1">Jackpot Pool</h3>
-                <div id="jackpot-counter" class="text-2xl font-black text-white font-mono tracking-widest tabular-nums">
+            <div class="relative z-10 text-center">
+                <h3 class="text-sk-gold text-[10px] font-black uppercase tracking-[0.2em] mb-0.5 drop-shadow-md">Jackpot Pool</h3>
+                <div id="jackpot-counter" class="text-[22px] font-black text-gold-gradient font-mono tracking-wider drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)] tabular-nums leading-none">
                     179,130,414.71
                 </div>
             </div>
@@ -235,7 +237,7 @@
     <nav class="fixed bottom-0 w-full bg-sk-dark border-t border-sk-input h-[65px] flex justify-around items-center pb-1 z-[50]">
         <div class="flex flex-col items-center text-sk-yellow"><i class="fa-solid fa-house text-xl mb-1"></i><span class="text-[9px]">Home</span></div>
         <div class="flex flex-col items-center text-gray-400"><i class="fa-solid fa-gift text-xl mb-1"></i><span class="text-[9px]">Offers</span></div>
-        <div class="flex flex-col items-center text-gray-400"><i class="fa-solid fa-right-to-bracket text-xl mb-1"></i><span class="text-[9px]">Login</span></div>
+        <div class="flex flex-col items-center text-gray-400"><i class="solid fa-right-to-bracket text-xl mb-1"></i><span class="text-[9px]">Login</span></div>
         <div class="flex flex-col items-center text-gray-400"><i class="fa-solid fa-download text-xl mb-1"></i><span class="text-[9px]">App</span></div>
         <div class="flex flex-col items-center text-gray-400"><i class="fa-regular fa-user text-xl mb-1"></i><span class="text-[9px]">Profile</span></div>
     </nav>
