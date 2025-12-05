@@ -84,9 +84,9 @@
     <header class="fixed top-[35px] w-full z-[50] bg-sk-bg/95 backdrop-blur border-b border-white/10 px-3 h-[50px] flex items-center justify-between">
         <div class="flex items-center gap-2">
             <i class="fa-solid fa-bars text-white text-lg"></i>
+            
             <div class="flex items-center">
-                <i class="fa-solid fa-dragon text-sk-gold text-2xl mr-1"></i>
-                <span class="font-black italic text-xl tracking-tighter text-gold-gradient">SK111<span class="text-[10px] not-italic text-gray-400 ml-0.5">.com</span></span>
+                <img src="sk111.jpg" alt="SK111 Logo" class="h-8 w-auto object-contain">
             </div>
         </div>
         <div class="flex gap-2">
@@ -122,9 +122,11 @@
     <div id="downloadBar" class="fixed bottom-[65px] left-0 right-0 mx-2 z-[90] bg-sk-input border border-sk-gold/30 rounded-lg p-3 shadow-2xl flex flex-col gap-2 slide-up-active">
         <button onclick="this.parentElement.style.display='none'" class="absolute top-1 right-2 text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
         <div class="flex items-center gap-3">
-            <div class="w-12 h-12 rounded-lg bg-black/40 border border-sk-gold/50 flex items-center justify-center shrink-0">
-                <i class="fa-solid fa-dragon text-sk-gold text-2xl"></i>
+            
+            <div class="w-12 h-12 rounded-lg bg-black/40 border border-sk-gold/50 flex items-center justify-center shrink-0 overflow-hidden">
+                <img src="skdownload.jpg" alt="App Icon" class="w-full h-full object-cover">
             </div>
+            
             <div class="flex flex-col">
                 <span class="text-xs text-white">Download and use the APP to receive</span>
                 <span class="text-sk-red font-bold text-lg">Rs11,777</span>
@@ -222,7 +224,7 @@
             <img src="jackpot.jpg" class="absolute inset-0 w-full h-full object-cover z-0" alt="Jackpot Background">
             
             <div class="relative z-10 text-center">
-                <h3 class="text-sk-gold text-[10px] font-black uppercase tracking-[0.2em] mb-0.5 drop-shadow-md">..................</h3>
+                <h3 class="text-sk-gold text-[10px] font-black uppercase tracking-[0.2em] mb-0.5 drop-shadow-md">Jackpot Pool</h3>
                 <div id="jackpot-counter" class="text-[22px] font-black text-gold-gradient font-mono tracking-wider drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)] tabular-nums leading-none">
                     179,130,414.71
                 </div>
@@ -237,7 +239,7 @@
     <nav class="fixed bottom-0 w-full bg-sk-dark border-t border-sk-input h-[65px] flex justify-around items-center pb-1 z-[50]">
         <div class="flex flex-col items-center text-sk-yellow"><i class="fa-solid fa-house text-xl mb-1"></i><span class="text-[9px]">Home</span></div>
         <div class="flex flex-col items-center text-gray-400"><i class="fa-solid fa-gift text-xl mb-1"></i><span class="text-[9px]">Offers</span></div>
-        <div class="flex flex-col items-center text-gray-400"><i class="solid fa-right-to-bracket text-xl mb-1"></i><span class="text-[9px]">Login</span></div>
+        <div class="flex flex-col items-center text-gray-400"><i class="fa-solid fa-right-to-bracket text-xl mb-1"></i><span class="text-[9px]">Login</span></div>
         <div class="flex flex-col items-center text-gray-400"><i class="fa-solid fa-download text-xl mb-1"></i><span class="text-[9px]">App</span></div>
         <div class="flex flex-col items-center text-gray-400"><i class="fa-regular fa-user text-xl mb-1"></i><span class="text-[9px]">Profile</span></div>
     </nav>
