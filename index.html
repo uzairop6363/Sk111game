@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SK111 - Official</title>
-    
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <script>
@@ -14,24 +12,10 @@
             theme: {
                 extend: {
                     colors: {
-                        sk: {
-                            bg: '#0a4229',
-                            dark: '#052e1c',
-                            gold: '#ffd700',
-                            yellow: '#ffff00',
-                            red: '#e60000',
-                            input: '#0d5536'
-                        }
+                        sk: { bg: '#0a4229', dark: '#052e1c', gold: '#ffd700', yellow: '#ffff00', red: '#e60000', input: '#0d5536' }
                     },
-                    animation: {
-                        marquee: 'marquee 20s linear infinite',
-                    },
-                    keyframes: {
-                        marquee: {
-                            '0%': { transform: 'translateX(100%)' },
-                            '100%': { transform: 'translateX(-100%)' },
-                        }
-                    }
+                    animation: { marquee: 'marquee 20s linear infinite' },
+                    keyframes: { marquee: { '0%': { transform: 'translateX(100%)' }, '100%': { transform: 'translateX(-100%)' } } }
                 }
             }
         }
@@ -39,48 +23,21 @@
     <style>
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        
         .text-gold-gradient {
             background: linear-gradient(to bottom, #fff8db, #ffd700, #ccaadd);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             filter: drop-shadow(0 2px 2px rgba(0,0,0,0.5));
         }
-
-        @keyframes bounceIn {
-            0% { transform: scale(0.3); opacity: 0; }
-            50% { transform: scale(1.05); opacity: 1; }
-            70% { transform: scale(0.9); }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        .popup-active {
-            animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-
+        /* Popup Animation */
+        @keyframes bounceIn { 0% { transform: scale(0.3); opacity: 0; } 50% { transform: scale(1.05); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
+        .popup-active { animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        
         /* Slide Up Animation for Deposit Page */
-        @keyframes slideUpFull {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
-        }
-        .slide-up-full {
-            animation: slideUpFull 0.4s ease-out forwards;
-        }
-
-        @keyframes slideDownFull {
-            from { transform: translateY(0); }
-            to { transform: translateY(100%); }
-        }
-        .slide-down-full {
-            animation: slideDownFull 0.4s ease-in forwards;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        .slide-up-active {
-            animation: slideUp 0.5s ease-out forwards;
-        }
+        .slide-up-full { transform: translateY(0) !important; }
+        
+        /* Bottom Download Bar Animation */
+        @keyframes slideUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .slide-up-active { animation: slideUp 0.5s ease-out forwards; }
     </style>
 </head>
 <body class="bg-sk-bg text-white pb-24 overflow-x-hidden font-sans">
@@ -91,9 +48,7 @@
             <div class="w-5 h-5 bg-yellow-400 rounded-sm flex items-center justify-center text-black font-bold">$</div>
             <span class="text-white font-bold">Free collection <span class="text-yellow-300 text-sm">Rs11,777</span></span>
         </div>
-        <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-0.5 rounded text-[10px] font-bold leading-tight shadow-sm">
-            Download<br>now
-        </button>
+        <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-0.5 rounded text-[10px] font-bold leading-tight shadow-sm">Download now</button>
     </div>
 
     <header class="fixed top-[35px] w-full z-[50] bg-sk-bg/95 backdrop-blur border-b border-white/10 px-3 h-[55px] flex items-center justify-between">
@@ -103,12 +58,9 @@
                 <img src="sk111.jpg" alt="SK111" class="h-8 w-auto object-contain">
             </div>
         </div>
-
         <div class="flex items-center gap-2">
             <div class="bg-black/40 border border-sk-gold/50 rounded-full px-1.5 py-1 flex items-center gap-2 h-8 min-w-[100px] relative">
-                <div class="w-5 h-5 rounded-full overflow-hidden border border-white shrink-0">
-                    <img src="https://flagcdn.com/pk.svg" class="w-full h-full object-cover">
-                </div>
+                <div class="w-5 h-5 rounded-full overflow-hidden border border-white shrink-0"><img src="https://flagcdn.com/pk.svg" class="w-full h-full object-cover"></div>
                 <span class="text-sk-gold font-bold text-xs">0.00</span>
                 <i class="fa-solid fa-arrows-rotate text-gray-400 text-[10px] ml-auto mr-1 cursor-pointer hover:text-white transition hover:rotate-180"></i>
             </div>
@@ -119,26 +71,27 @@
         </div>
     </header>
 
+    <div id="depositModal" class="fixed inset-0 z-[200] bg-sk-bg hidden flex-col transition-transform duration-300 transform translate-y-full">
+        <div class="bg-sk-dark p-2 flex justify-end shadow-md">
+            <button onclick="closeDepositModal()" class="text-white w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+        <iframe src="deposit.html" class="flex-1 w-full border-none bg-sk-bg"></iframe>
+    </div>
+
     <div id="eventPopup" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm hidden">
         <div class="popup-content popup-active relative w-[90%] max-w-sm bg-sk-dark border-2 border-sk-gold rounded-xl overflow-hidden shadow-2xl">
-            <button onclick="closeEventPopup()" class="absolute top-2 right-2 bg-black/60 rounded-full w-7 h-7 flex items-center justify-center text-white z-20 border border-white/20">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
+            <button onclick="closeEventPopup()" class="absolute top-2 right-2 bg-black/60 rounded-full w-7 h-7 flex items-center justify-center text-white z-20 border border-white/20"><i class="fa-solid fa-xmark"></i></button>
             <div class="h-36 bg-[url('https://placehold.co/600x300/052e1c/ffd700?text=CASHBACK+EVENT')] bg-cover bg-center relative">
                 <div class="absolute inset-0 bg-gradient-to-t from-sk-dark to-transparent"></div>
                 <div class="absolute inset-0 flex flex-col items-center justify-center pt-4">
-                    <h2 class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-b from-yellow-300 to-orange-500 drop-shadow-[0_2px_0_rgba(0,0,0,1)] text-center leading-none">
-                        DECEMBER 7TH<br>ULTIMATE CASHBACK
-                    </h2>
+                    <h2 class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-b from-yellow-300 to-orange-500 drop-shadow-[0_2px_0_rgba(0,0,0,1)] text-center leading-none">DECEMBER 7TH<br>ULTIMATE CASHBACK</h2>
                 </div>
             </div>
             <div class="p-4 bg-sk-dark text-white text-[11px] space-y-3 border-t border-sk-gold">
                 <p class="leading-tight"><strong class="text-sk-gold">Activity 1:</strong> Simply register a member account by <span class="text-green-400 font-bold">November 30, 2025</span>, and you can win <span class="text-sk-yellow font-bold">Rs 77.00</span> for free.</p>
-                <div class="h-[1px] bg-white/10 w-full"></div>
-                <p class="leading-tight"><strong class="text-sk-gold">Activity 2:</strong> Members who deposit <span class="text-sk-yellow font-bold">Rs 1.00</span> or above will receive a cash reward up to <span class="text-sk-yellow font-bold">Rs 7,777,777</span>.</p>
-                <div class="bg-black/30 p-2 rounded text-center cursor-pointer hover:bg-black/50 transition">
-                    <span class="text-sk-yellow font-bold underline text-xs">Download the official APP website</span>
-                </div>
+                <div class="bg-black/30 p-2 rounded text-center cursor-pointer hover:bg-black/50 transition"><span class="text-sk-yellow font-bold underline text-xs">Download the official APP website</span></div>
             </div>
         </div>
     </div>
@@ -146,13 +99,8 @@
     <div id="downloadBar" class="fixed bottom-[65px] left-0 right-0 mx-2 z-[90] bg-sk-input border border-sk-gold/30 rounded-lg p-3 shadow-2xl flex flex-col gap-2 slide-up-active">
         <button onclick="this.parentElement.style.display='none'" class="absolute top-1 right-2 text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
         <div class="flex items-center gap-3">
-            <div class="w-12 h-12 rounded-lg bg-black/40 border border-sk-gold/50 flex items-center justify-center shrink-0 overflow-hidden">
-                <img src="skdownload.jpg" alt="App Icon" class="w-full h-full object-cover">
-            </div>
-            <div class="flex flex-col">
-                <span class="text-xs text-white">Download and use the APP to receive</span>
-                <span class="text-sk-red font-bold text-lg">Rs11,777</span>
-            </div>
+            <div class="w-12 h-12 rounded-lg bg-black/40 border border-sk-gold/50 flex items-center justify-center shrink-0 overflow-hidden"><img src="skdownload.jpg" alt="App Icon" class="w-full h-full object-cover"></div>
+            <div class="flex flex-col"><span class="text-xs text-white">Download and use the APP to receive</span><span class="text-sk-red font-bold text-lg">Rs11,777</span></div>
         </div>
         <div class="flex gap-2 mt-1">
             <button class="flex-1 bg-transparent border border-sk-yellow text-sk-yellow text-[10px] font-bold py-2 rounded flex items-center justify-center gap-1"><i class="fa-brands fa-apple"></i> Add a desktop shortcut</button>
@@ -160,133 +108,54 @@
         </div>
     </div>
 
-    <div id="depositModal" class="fixed inset-0 z-[200] bg-sk-bg hidden flex-col transition-transform duration-300 transform translate-y-full">
-        <div class="bg-sk-dark p-2 flex justify-end">
-            <button onclick="closeDepositModal()" class="text-white p-2 rounded-full bg-white/10 hover:bg-white/20">
-                <i class="fa-solid fa-xmark text-xl"></i>
-            </button>
-        </div>
-        <iframe src="deposit.html" class="flex-1 w-full border-none" title="Deposit"></iframe>
-    </div>
-
     <main class="pt-[95px] px-2 space-y-3">
-        
         <div class="relative w-full aspect-[2/1] rounded-xl overflow-hidden border border-sk-gold/50 shadow-lg bg-sk-dark">
             <div id="hero-slider" class="relative w-full h-full">
-                <img src="header1.jpg" class="slider-image absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100" alt="Banner 1">
-                <img src="header2.jpg" class="slider-image absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Banner 2">
-                <img src="header3.jpg" class="slider-image absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Banner 3">
+                <img src="header1.jpg" class="slider-image absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100">
+                <img src="header2.jpg" class="slider-image absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0">
+                <img src="header3.jpg" class="slider-image absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0">
             </div>
-            <div class="absolute bottom-2 left-0 right-0 flex justify-center gap-1 z-10">
-                <div class="slider-dot w-1.5 h-1.5 rounded-full bg-white opacity-100"></div>
-                <div class="slider-dot w-1.5 h-1.5 rounded-full bg-white opacity-50"></div>
-                <div class="slider-dot w-1.5 h-1.5 rounded-full bg-white opacity-50"></div>
-            </div>
+            <div class="absolute bottom-2 left-0 right-0 flex justify-center gap-1 z-10"><div class="slider-dot w-1.5 h-1.5 rounded-full bg-white opacity-100"></div><div class="slider-dot w-1.5 h-1.5 rounded-full bg-white opacity-50"></div><div class="slider-dot w-1.5 h-1.5 rounded-full bg-white opacity-50"></div></div>
         </div>
 
         <div class="bg-black/30 rounded-full py-1 px-3 flex items-center gap-2 border border-white/10 overflow-hidden">
             <i class="fa-solid fa-bullhorn text-sk-yellow text-xs"></i>
-            <div class="flex-1 overflow-hidden relative h-[16px]">
-                <div class="absolute whitespace-nowrap animate-marquee text-xs text-gray-300">
-                    Invite 1 person and get reward up to Rs5,000! | VIP Privileges active. | Welcome to SK111.com
-                </div>
-            </div>
+            <div class="flex-1 overflow-hidden relative h-[16px]"><div class="absolute whitespace-nowrap animate-marquee text-xs text-gray-300">Invite 1 person and get reward up to Rs5,000! | VIP Privileges active. | Welcome to SK111.com</div></div>
         </div>
 
         <div class="grid grid-cols-3 gap-2">
-            <a href="https://www.bk66app.org/m/register?r=qhg6990" target="_blank" class="block h-14 rounded-lg overflow-hidden border border-white/10 relative group hover:border-sk-gold transition">
-                <img src="bk66.jpg" class="w-full h-full object-cover opacity-100 transition" alt="ZH88">
-                <span class="absolute top-0 left-0 bg-sk-red text-[8px] px-1 font-bold text-white z-10">NEW</span>
-            </a>
-            <a href="https://666w66.com" target="_blank" class="block h-14 rounded-lg overflow-hidden border border-white/10 relative group hover:border-sk-gold transition">
-                <img src="666w.jpg" class="w-full h-full object-cover opacity-100 transition" alt="777AD">
-            </a>
-            <a href="https://666p6.com" target="_blank" class="block h-14 rounded-lg overflow-hidden border border-white/10 relative group hover:border-sk-gold transition">
-                <img src="666p.jpg" class="w-full h-full object-cover opacity-100 transition" alt="777FE">
-            </a>
+            <a href="https://www.bk66app.org/m/register?r=qhg6990" target="_blank" class="block h-14 rounded-lg overflow-hidden border border-white/10 relative group hover:border-sk-gold transition"><img src="bk66.jpg" class="w-full h-full object-cover opacity-100 transition"><span class="absolute top-0 left-0 bg-sk-red text-[8px] px-1 font-bold text-white z-10">NEW</span></a>
+            <a href="https://666w66.com" target="_blank" class="block h-14 rounded-lg overflow-hidden border border-white/10 relative group hover:border-sk-gold transition"><img src="666w.jpg" class="w-full h-full object-cover opacity-100 transition"></a>
+            <a href="https://666p6.com" target="_blank" class="block h-14 rounded-lg overflow-hidden border border-white/10 relative group hover:border-sk-gold transition"><img src="666p.jpg" class="w-full h-full object-cover opacity-100 transition"></a>
         </div>
 
         <div class="flex items-center gap-3 overflow-x-auto no-scrollbar py-2 px-1">
-            <button onclick="filterGames('hot')" id="tab-hot" class="category-btn flex flex-col items-center min-w-[55px] gap-1 group">
-                <div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center shadow-[0_0_10px_#ffd700] border-2 border-yellow-400">
-                    <img src="hot.jpg" alt="Hot" class="w-full h-full object-contain">
-                </div>
-                <span class="text-[10px] font-bold text-white">Hot</span>
-            </button>
-            <button onclick="filterGames('slots')" id="tab-slots" class="category-btn flex flex-col items-center min-w-[55px] gap-1">
-                <div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400">
-                    <img src="slot.jpg" alt="Slot" class="w-full h-full object-contain">
-                </div>
-                <span class="text-[10px] text-gray-400">Slot</span>
-            </button>
-            <button onclick="filterGames('cards')" id="tab-cards" class="category-btn flex flex-col items-center min-w-[55px] gap-1">
-                <div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400">
-                    <img src="cards.jpg" alt="Cards" class="w-full h-full object-contain">
-                </div>
-                <span class="text-[10px] text-gray-400">Cards</span>
-            </button>
-            <button onclick="filterGames('blockchain')" id="tab-blockchain" class="category-btn flex flex-col items-center min-w-[55px] gap-1">
-                <div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400">
-                    <img src="blockchain.jpg" alt="Blockchain" class="w-full h-full object-contain">
-                </div>
-                <span class="text-[10px] text-gray-400">Blockchain</span>
-            </button>
-            <button onclick="filterGames('fishing')" id="tab-fishing" class="category-btn flex flex-col items-center min-w-[55px] gap-1">
-                <div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400">
-                    <img src="fishing.jpg" alt="Fishing" class="w-full h-full object-contain">
-                </div>
-                <span class="text-[10px] text-gray-400">Fishing</span>
-            </button>
-            <button onclick="filterGames('live')" id="tab-live" class="category-btn flex flex-col items-center min-w-[55px] gap-1">
-                <div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400">
-                    <img src="live.jpg" alt="Live" class="w-full h-full object-contain">
-                </div>
-                <span class="text-[10px] text-gray-400">Live</span>
-            </button>
-            <button onclick="filterGames('sports')" id="tab-sports" class="category-btn flex flex-col items-center min-w-[55px] gap-1">
-                <div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400">
-                    <img src="sports.jpg" alt="Sports" class="w-full h-full object-contain">
-                </div>
-                <span class="text-[10px] text-gray-400">Sports</span>
-            </button>
+            <button onclick="filterGames('hot')" id="tab-hot" class="category-btn flex flex-col items-center min-w-[55px] gap-1 group"><div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center shadow-[0_0_10px_#ffd700] border-2 border-yellow-400"><img src="hot.jpg" class="w-full h-full object-contain"></div><span class="text-[10px] font-bold text-white">Hot</span></button>
+            <button onclick="filterGames('slots')" id="tab-slots" class="category-btn flex flex-col items-center min-w-[55px] gap-1"><div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400"><img src="slot.jpg" class="w-full h-full object-contain"></div><span class="text-[10px] text-gray-400">Slot</span></button>
+            <button onclick="filterGames('cards')" id="tab-cards" class="category-btn flex flex-col items-center min-w-[55px] gap-1"><div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400"><img src="cards.jpg" class="w-full h-full object-contain"></div><span class="text-[10px] text-gray-400">Cards</span></button>
+            <button onclick="filterGames('blockchain')" id="tab-blockchain" class="category-btn flex flex-col items-center min-w-[55px] gap-1"><div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400"><img src="blockchain.jpg" class="w-full h-full object-contain"></div><span class="text-[10px] text-gray-400">Blockchain</span></button>
+            <button onclick="filterGames('fishing')" id="tab-fishing" class="category-btn flex flex-col items-center min-w-[55px] gap-1"><div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400"><img src="fishing.jpg" class="w-full h-full object-contain"></div><span class="text-[10px] text-gray-400">Fishing</span></button>
+            <button onclick="filterGames('live')" id="tab-live" class="category-btn flex flex-col items-center min-w-[55px] gap-1"><div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400"><img src="live.jpg" class="w-full h-full object-contain"></div><span class="text-[10px] text-gray-400">Live</span></button>
+            <button onclick="filterGames('sports')" id="tab-sports" class="category-btn flex flex-col items-center min-w-[55px] gap-1"><div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400"><img src="sports.jpg" class="w-full h-full object-contain"></div><span class="text-[10px] text-gray-400">Sports</span></button>
         </div>
 
         <div class="relative w-full h-32 rounded-lg overflow-hidden shadow-[0_0_15px_#ffd70033] flex flex-col items-center justify-center border border-sk-gold/50 my-2 bg-sk-dark">
             <img src="jackpot.jpg" class="absolute inset-0 w-full h-full object-cover z-0" alt="Jackpot Background">
             <div class="relative z-10 text-center">
                 <h3 class="text-sk-gold text-[10px] font-black uppercase tracking-[0.2em] mb-0.5 drop-shadow-md">Jackpot Pool</h3>
-                <div id="jackpot-counter" class="text-[22px] font-black text-gold-gradient font-mono tracking-wider drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)] tabular-nums leading-none">
-                    179,130,414.71
-                </div>
+                <div id="jackpot-counter" class="text-[22px] font-black text-gold-gradient font-mono tracking-wider drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)] tabular-nums leading-none">179,130,414.71</div>
             </div>
         </div>
 
-        <div id="games-container" class="grid grid-cols-3 gap-2 pb-4">
-            </div>
-
+        <div id="games-container" class="grid grid-cols-3 gap-2 pb-4"></div>
     </main>
 
     <nav class="fixed bottom-0 w-full bg-sk-dark border-t border-sk-input h-[65px] flex justify-around items-center pb-1 z-[50]">
-        <div class="flex flex-col items-center text-sk-yellow">
-            <i class="fa-solid fa-house text-xl mb-1"></i>
-            <span class="text-[9px]">Home</span>
-        </div>
-        <div class="flex flex-col items-center text-gray-400 hover:text-white transition">
-            <i class="fa-solid fa-gift text-xl mb-1"></i>
-            <span class="text-[9px]">Offers</span>
-        </div>
-        <div onclick="openDepositModal()" class="flex flex-col items-center text-gray-400 hover:text-white transition cursor-pointer">
-            <i class="fa-solid fa-wallet text-xl mb-1"></i>
-            <span class="text-[9px]">Deposit</span>
-        </div>
-        <div class="flex flex-col items-center text-gray-400 hover:text-white transition">
-            <i class="fa-solid fa-headset text-xl mb-1"></i>
-            <span class="text-[9px]">Support</span>
-        </div>
-        <div class="flex flex-col items-center text-gray-400 hover:text-white transition">
-            <i class="fa-regular fa-user text-xl mb-1"></i>
-            <span class="text-[9px]">Profile</span>
-        </div>
+        <div class="flex flex-col items-center text-sk-yellow"><i class="fa-solid fa-house text-xl mb-1"></i><span class="text-[9px]">Home</span></div>
+        <div class="flex flex-col items-center text-gray-400 hover:text-white transition"><i class="fa-solid fa-gift text-xl mb-1"></i><span class="text-[9px]">Offers</span></div>
+        <div onclick="openDepositModal()" class="flex flex-col items-center text-gray-400 hover:text-white transition cursor-pointer"><i class="fa-solid fa-wallet text-xl mb-1"></i><span class="text-[9px]">Deposit</span></div>
+        <div class="flex flex-col items-center text-gray-400 hover:text-white transition"><i class="fa-solid fa-headset text-xl mb-1"></i><span class="text-[9px]">Support</span></div>
+        <div class="flex flex-col items-center text-gray-400 hover:text-white transition"><i class="fa-regular fa-user text-xl mb-1"></i><span class="text-[9px]">Profile</span></div>
     </nav>
 
     <div id="authPopup" class="fixed inset-0 z-[110] flex items-center justify-center bg-black/90 backdrop-blur-sm hidden">
@@ -298,7 +167,7 @@
     </div>
 
     <script>
-        // === 1. GAME DATA ===
+        // === GAME DATA ===
         const gamesDB = [
             { name: 'Aviator', type: 'hot', img: 'aviator.jpg', hot: true },
             { name: 'Money Coming', type: 'hot', img: 'money.jpg', hot: true },
@@ -323,7 +192,6 @@
             buttons.forEach(btn => {
                 const iconBox = btn.querySelector('.icon-box');
                 const text = btn.querySelector('span');
-
                 if(btn.id === 'tab-' + category) {
                     iconBox.className = 'icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center shadow-[0_0_10px_#ffd700] border-2 border-yellow-400 transition-all';
                     text.className = 'text-[10px] text-white font-bold';
@@ -347,22 +215,19 @@
             });
         }
 
-        // === 2. JACKPOT ANIMATION ===
+        // Jackpot Animation
         let jackpotValue = 179130414.71;
         function animateJackpot() {
             jackpotValue += (Math.random() * 0.8) - 0.2;
-            document.getElementById('jackpot-counter').innerText = jackpotValue.toLocaleString('en-US', {
-                minimumFractionDigits: 2, maximumFractionDigits: 2
-            });
+            document.getElementById('jackpot-counter').innerText = jackpotValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             requestAnimationFrame(animateJackpot);
         }
 
-        // === 3. SLIDER ANIMATION ===
+        // Slider Animation
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slider-image');
         const dots = document.querySelectorAll('.slider-dot');
         const totalSlides = slides.length;
-
         function nextSlide() {
             if (slides.length === 0) return;
             slides[currentSlide].classList.replace('opacity-100', 'opacity-0');
@@ -371,31 +236,29 @@
             slides[currentSlide].classList.replace('opacity-0', 'opacity-100');
             dots[currentSlide].classList.replace('opacity-50', 'opacity-100');
         }
+        if(slides.length > 0) { setInterval(nextSlide, 3000); }
 
-        if(slides.length > 0) {
-            setInterval(nextSlide, 3000);
-        }
-
-        // === 4. DEPOSIT MODAL FUNCTIONS (New) ===
+        // === DEPOSIT MODAL LOGIC (Corrected) ===
         function openDepositModal() {
             const modal = document.getElementById('depositModal');
             modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.remove('translate-y-full');
+            // Small delay to allow CSS transition to catch the removal of 'hidden'
+            requestAnimationFrame(() => {
                 modal.classList.add('slide-up-full');
-            }, 10);
+                modal.classList.remove('translate-y-full');
+            });
         }
 
         function closeDepositModal() {
             const modal = document.getElementById('depositModal');
             modal.classList.remove('slide-up-full');
-            modal.classList.add('translate-y-full'); // Slide down
+            modal.classList.add('translate-y-full');
             setTimeout(() => {
                 modal.classList.add('hidden');
-            }, 300); // Wait for animation
+            }, 300); // Matches duration-300 in CSS
         }
 
-        // === INIT ===
+        // Init
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => document.getElementById('eventPopup').style.display = 'flex', 300);
             animateJackpot();
