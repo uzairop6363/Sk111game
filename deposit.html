@@ -28,15 +28,10 @@
 </head>
 <body class="bg-app-dark text-white min-h-screen pb-24 relative overflow-x-hidden">
 
-    <div class="bg-[#990000] flex justify-between items-center px-3 py-2 text-sm sticky top-0 z-40 shadow-md">
-        <span class="text-neon-yellow font-bold text-xs sm:text-sm">Free collection Rs11,777</span>
-        <button class="bg-[#1e40af] text-white px-3 py-1 rounded-[4px] text-[10px] font-bold shadow-lg uppercase tracking-wide">
-            Download now
+    <div class="flex justify-between items-center px-4 py-4 relative z-40 bg-app-dark border-b border-white/5">
+        <button onclick="goBack()" class="p-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#aabfb6]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
         </button>
-    </div>
-
-    <div class="flex justify-between items-center px-4 py-4 relative z-40">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#aabfb6]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
         
         <h1 class="text-lg font-medium tracking-wide">Deposit</h1>
         
@@ -279,6 +274,17 @@
                     No Records
                 </p>
             `;
+        }
+
+        // NEW: Back Button Function
+        function goBack() {
+            // Check if inside iframe, call parent function to close modal
+            if (window.parent && window.parent.closeDepositModal) {
+                window.parent.closeDepositModal();
+            } else {
+                // Fallback for standalone testing
+                window.history.back();
+            }
         }
     </script>
 </body>
