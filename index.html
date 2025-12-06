@@ -57,6 +57,23 @@
             animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
+        /* Slide Up Animation for Deposit Page */
+        @keyframes slideUpFull {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        .slide-up-full {
+            animation: slideUpFull 0.4s ease-out forwards;
+        }
+
+        @keyframes slideDownFull {
+            from { transform: translateY(0); }
+            to { transform: translateY(100%); }
+        }
+        .slide-down-full {
+            animation: slideDownFull 0.4s ease-in forwards;
+        }
+
         @keyframes slideUp {
             from { transform: translateY(100%); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
@@ -95,7 +112,7 @@
                 <span class="text-sk-gold font-bold text-xs">0.00</span>
                 <i class="fa-solid fa-arrows-rotate text-gray-400 text-[10px] ml-auto mr-1 cursor-pointer hover:text-white transition hover:rotate-180"></i>
             </div>
-            <button class="relative bg-gradient-to-b from-yellow-300 to-yellow-500 text-black text-xs font-bold px-3 py-1.5 rounded-lg shadow-lg border border-white/20">
+            <button onclick="openDepositModal()" class="relative bg-gradient-to-b from-yellow-300 to-yellow-500 text-black text-xs font-bold px-3 py-1.5 rounded-lg shadow-lg border border-white/20">
                 Deposit
                 <span class="absolute -top-2 -right-1 bg-red-600 text-white text-[8px] font-bold px-1 rounded-bl-lg rounded-tr-lg border border-white/50 shadow">+1%</span>
             </button>
@@ -141,6 +158,15 @@
             <button class="flex-1 bg-transparent border border-sk-yellow text-sk-yellow text-[10px] font-bold py-2 rounded flex items-center justify-center gap-1"><i class="fa-brands fa-apple"></i> Add a desktop shortcut</button>
             <button class="flex-1 bg-sk-yellow text-black text-[10px] font-bold py-2 rounded flex items-center justify-center gap-1 shadow-[0_0_10px_#ffff00aa]"><i class="fa-brands fa-android"></i> Download APP</button>
         </div>
+    </div>
+
+    <div id="depositModal" class="fixed inset-0 z-[200] bg-sk-bg hidden flex-col transition-transform duration-300 transform translate-y-full">
+        <div class="bg-sk-dark p-2 flex justify-end">
+            <button onclick="closeDepositModal()" class="text-white p-2 rounded-full bg-white/10 hover:bg-white/20">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </div>
+        <iframe src="deposit.html" class="flex-1 w-full border-none" title="Deposit"></iframe>
     </div>
 
     <main class="pt-[95px] px-2 space-y-3">
@@ -241,11 +267,26 @@
     </main>
 
     <nav class="fixed bottom-0 w-full bg-sk-dark border-t border-sk-input h-[65px] flex justify-around items-center pb-1 z-[50]">
-        <div class="flex flex-col items-center text-sk-yellow"><i class="fa-solid fa-house text-xl mb-1"></i><span class="text-[9px]">Home</span></div>
-        <div class="flex flex-col items-center text-gray-400"><i class="fa-solid fa-gift text-xl mb-1"></i><span class="text-[9px]">Offers</span></div>
-        <div class="flex flex-col items-center text-gray-400"><i class="fa-solid fa-wallet text-xl mb-1"></i><span class="text-[9px]">Deposit</span></div>
-        <div class="flex flex-col items-center text-gray-400"><i class="fa-solid fa-headset text-xl mb-1"></i><span class="text-[9px]">Support</span></div>
-        <div class="flex flex-col items-center text-gray-400"><i class="fa-regular fa-user text-xl mb-1"></i><span class="text-[9px]">Profile</span></div>
+        <div class="flex flex-col items-center text-sk-yellow">
+            <i class="fa-solid fa-house text-xl mb-1"></i>
+            <span class="text-[9px]">Home</span>
+        </div>
+        <div class="flex flex-col items-center text-gray-400 hover:text-white transition">
+            <i class="fa-solid fa-gift text-xl mb-1"></i>
+            <span class="text-[9px]">Offers</span>
+        </div>
+        <div onclick="openDepositModal()" class="flex flex-col items-center text-gray-400 hover:text-white transition cursor-pointer">
+            <i class="fa-solid fa-wallet text-xl mb-1"></i>
+            <span class="text-[9px]">Deposit</span>
+        </div>
+        <div class="flex flex-col items-center text-gray-400 hover:text-white transition">
+            <i class="fa-solid fa-headset text-xl mb-1"></i>
+            <span class="text-[9px]">Support</span>
+        </div>
+        <div class="flex flex-col items-center text-gray-400 hover:text-white transition">
+            <i class="fa-regular fa-user text-xl mb-1"></i>
+            <span class="text-[9px]">Profile</span>
+        </div>
     </nav>
 
     <div id="authPopup" class="fixed inset-0 z-[110] flex items-center justify-center bg-black/90 backdrop-blur-sm hidden">
@@ -257,7 +298,7 @@
     </div>
 
     <script>
-        // === 1. GAME DATA (Updated) ===
+        // === 1. GAME DATA ===
         const gamesDB = [
             { name: 'Aviator', type: 'hot', img: 'aviator.jpg', hot: true },
             { name: 'Money Coming', type: 'hot', img: 'money.jpg', hot: true },
@@ -268,7 +309,6 @@
             { name: 'Plinko', type: 'hot', img: 'plinko.jpg', hot: true },
             { name: 'Super Fruits', type: 'hot', img: 'superfruits.jpg', hot: true },
             { name: 'Fortune Gems', type: 'hot', img: 'fortune.jpg', hot: true },
-            // Extra dummy data for other tabs to work
             { name: 'Teen Patti', type: 'cards', img: 'cards.jpg', hot: false },
             { name: 'Crypto Crash', type: 'blockchain', img: 'blockchain.jpg', hot: false },
             { name: 'Mega Fishing', type: 'fishing', img: 'fishing.jpg', hot: false },
@@ -307,7 +347,7 @@
             });
         }
 
-        // --- 2. JACKPOT ANIMATION ---
+        // === 2. JACKPOT ANIMATION ===
         let jackpotValue = 179130414.71;
         function animateJackpot() {
             jackpotValue += (Math.random() * 0.8) - 0.2;
@@ -317,7 +357,7 @@
             requestAnimationFrame(animateJackpot);
         }
 
-        // --- 3. SLIDER ANIMATION ---
+        // === 3. SLIDER ANIMATION ===
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slider-image');
         const dots = document.querySelectorAll('.slider-dot');
@@ -336,7 +376,26 @@
             setInterval(nextSlide, 3000);
         }
 
-        // --- INIT ---
+        // === 4. DEPOSIT MODAL FUNCTIONS (New) ===
+        function openDepositModal() {
+            const modal = document.getElementById('depositModal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('translate-y-full');
+                modal.classList.add('slide-up-full');
+            }, 10);
+        }
+
+        function closeDepositModal() {
+            const modal = document.getElementById('depositModal');
+            modal.classList.remove('slide-up-full');
+            modal.classList.add('translate-y-full'); // Slide down
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300); // Wait for animation
+        }
+
+        // === INIT ===
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => document.getElementById('eventPopup').style.display = 'flex', 300);
             animateJackpot();
