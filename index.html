@@ -47,7 +47,6 @@
             filter: drop-shadow(0 2px 2px rgba(0,0,0,0.5));
         }
 
-        /* Animations */
         @keyframes bounceIn {
             0% { transform: scale(0.3); opacity: 0; }
             50% { transform: scale(1.05); opacity: 1; }
@@ -89,22 +88,17 @@
         </div>
 
         <div class="flex items-center gap-2">
-            
             <div class="bg-black/40 border border-sk-gold/50 rounded-full px-1.5 py-1 flex items-center gap-2 h-8 min-w-[100px] relative">
                 <div class="w-5 h-5 rounded-full overflow-hidden border border-white shrink-0">
                     <img src="https://flagcdn.com/pk.svg" class="w-full h-full object-cover">
                 </div>
-                
                 <span class="text-sk-gold font-bold text-xs">0.00</span>
-                
                 <i class="fa-solid fa-arrows-rotate text-gray-400 text-[10px] ml-auto mr-1 cursor-pointer hover:text-white transition hover:rotate-180"></i>
             </div>
-
             <button class="relative bg-gradient-to-b from-yellow-300 to-yellow-500 text-black text-xs font-bold px-3 py-1.5 rounded-lg shadow-lg border border-white/20">
                 Deposit
                 <span class="absolute -top-2 -right-1 bg-red-600 text-white text-[8px] font-bold px-1 rounded-bl-lg rounded-tr-lg border border-white/50 shadow">+1%</span>
             </button>
-
         </div>
     </header>
 
@@ -247,26 +241,11 @@
     </main>
 
     <nav class="fixed bottom-0 w-full bg-sk-dark border-t border-sk-input h-[65px] flex justify-around items-center pb-1 z-[50]">
-        <div class="flex flex-col items-center text-sk-yellow">
-            <i class="fa-solid fa-house text-xl mb-1"></i>
-            <span class="text-[9px]">Home</span>
-        </div>
-        <div class="flex flex-col items-center text-gray-400 hover:text-white transition">
-            <i class="fa-solid fa-gift text-xl mb-1"></i>
-            <span class="text-[9px]">Offers</span>
-        </div>
-        <div class="flex flex-col items-center text-gray-400 hover:text-white transition">
-            <i class="fa-solid fa-wallet text-xl mb-1"></i>
-            <span class="text-[9px]">Deposit</span>
-        </div>
-        <div class="flex flex-col items-center text-gray-400 hover:text-white transition">
-            <i class="fa-solid fa-headset text-xl mb-1"></i>
-            <span class="text-[9px]">Support</span>
-        </div>
-        <div class="flex flex-col items-center text-gray-400 hover:text-white transition">
-            <i class="fa-regular fa-user text-xl mb-1"></i>
-            <span class="text-[9px]">Profile</span>
-        </div>
+        <div class="flex flex-col items-center text-sk-yellow"><i class="fa-solid fa-house text-xl mb-1"></i><span class="text-[9px]">Home</span></div>
+        <div class="flex flex-col items-center text-gray-400"><i class="fa-solid fa-gift text-xl mb-1"></i><span class="text-[9px]">Offers</span></div>
+        <div class="flex flex-col items-center text-gray-400"><i class="fa-solid fa-wallet text-xl mb-1"></i><span class="text-[9px]">Deposit</span></div>
+        <div class="flex flex-col items-center text-gray-400"><i class="fa-solid fa-headset text-xl mb-1"></i><span class="text-[9px]">Support</span></div>
+        <div class="flex flex-col items-center text-gray-400"><i class="fa-regular fa-user text-xl mb-1"></i><span class="text-[9px]">Profile</span></div>
     </nav>
 
     <div id="authPopup" class="fixed inset-0 z-[110] flex items-center justify-center bg-black/90 backdrop-blur-sm hidden">
@@ -278,16 +257,23 @@
     </div>
 
     <script>
-        // --- 1. GAME DATA & FILTERING ---
+        // === 1. GAME DATA (Updated) ===
         const gamesDB = [
-            { name: 'Aviator', type: 'hot', img: 'https://placehold.co/300x400/222/f00?text=Aviator', hot: true },
-            { name: 'Money Coming', type: 'slots', img: 'https://placehold.co/300x400/0a4229/ffd700?text=Money', hot: true },
-            { name: 'Fortune Gems', type: 'slots', img: 'https://placehold.co/300x400/550055/ffd700?text=Fortune', hot: true },
-            { name: 'Teen Patti', type: 'cards', img: 'https://placehold.co/300x400/111/fff?text=Cards', hot: false },
-            { name: 'Crypto Crash', type: 'blockchain', img: 'https://placehold.co/300x400/333/0f0?text=Block', hot: false },
-            { name: 'Mega Fishing', type: 'fishing', img: 'https://placehold.co/300x400/0044aa/fff?text=Fish', hot: true },
-            { name: 'Live Roulette', type: 'live', img: 'https://placehold.co/300x400/900/fff?text=Live', hot: true },
-            { name: 'Football Bet', type: 'sports', img: 'https://placehold.co/300x400/090/fff?text=Sport', hot: false },
+            { name: 'Aviator', type: 'hot', img: 'aviator.jpg', hot: true },
+            { name: 'Money Coming', type: 'hot', img: 'money.jpg', hot: true },
+            { name: 'Fortune Gems 3', type: 'hot', img: 'fortune3.jpg', hot: true },
+            { name: 'Crash', type: 'hot', img: 'crash.jpg', hot: true },
+            { name: 'Fortune Gems 2', type: 'hot', img: 'fortune2.jpg', hot: true },
+            { name: 'Crazy 777', type: 'hot', img: 'crazy.jpg', hot: true },
+            { name: 'Plinko', type: 'hot', img: 'plinko.jpg', hot: true },
+            { name: 'Super Fruits', type: 'hot', img: 'superfruits.jpg', hot: true },
+            { name: 'Fortune Gems', type: 'hot', img: 'fortune.jpg', hot: true },
+            // Extra dummy data for other tabs to work
+            { name: 'Teen Patti', type: 'cards', img: 'cards.jpg', hot: false },
+            { name: 'Crypto Crash', type: 'blockchain', img: 'blockchain.jpg', hot: false },
+            { name: 'Mega Fishing', type: 'fishing', img: 'fishing.jpg', hot: false },
+            { name: 'Live Roulette', type: 'live', img: 'live.jpg', hot: false },
+            { name: 'Football Bet', type: 'sports', img: 'sports.jpg', hot: false },
         ];
 
         function filterGames(category) {
@@ -313,9 +299,10 @@
             filtered.forEach(game => {
                 container.innerHTML += `
                 <div class="bg-sk-dark rounded-lg overflow-hidden relative aspect-[3/4] border border-white/5 group animate-[fadeIn_0.5s]">
-                    <img src="${game.img}" class="w-full h-full object-cover">
-                    ${game.hot ? '<div class="absolute top-1 left-1 bg-sk-red text-[7px] text-white px-1.5 py-0.5 font-bold rounded-sm z-10">HOT</div>' : ''}
-                    <div class="absolute bottom-0 w-full bg-black/80 text-[9px] text-center text-white py-1">${game.name}</div>
+                    <img src="${game.img}" class="w-full h-full object-cover opacity-100 transition duration-300">
+                    ${game.hot ? '<div class="absolute top-1 left-1 bg-sk-red text-[7px] text-white px-1.5 py-0.5 font-bold rounded-sm z-10 shadow-md">HOT</div>' : ''}
+                    <div class="absolute top-1 right-1 bg-black/40 rounded-full p-1"><i class="fa-solid fa-star text-[8px] text-white/50"></i></div>
+                    <div class="absolute bottom-0 w-full bg-black/80 text-[9px] text-center text-white py-1 truncate px-1">${game.name}</div>
                 </div>`;
             });
         }
