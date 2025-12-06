@@ -40,7 +40,6 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
-        /* Gold Gradient Text Style */
         .text-gold-gradient {
             background: linear-gradient(to bottom, #fff8db, #ffd700, #ccaadd);
             -webkit-background-clip: text;
@@ -81,17 +80,31 @@
         </button>
     </div>
 
-    <header class="fixed top-[35px] w-full z-[50] bg-sk-bg/95 backdrop-blur border-b border-white/10 px-3 h-[50px] flex items-center justify-between">
+    <header class="fixed top-[35px] w-full z-[50] bg-sk-bg/95 backdrop-blur border-b border-white/10 px-3 h-[55px] flex items-center justify-between">
         <div class="flex items-center gap-2">
             <i class="fa-solid fa-bars text-white text-lg"></i>
-            
             <div class="flex items-center">
-                <img src="sk111.jpg" alt="SK111 Logo" class="h-8 w-auto object-contain">
+                <img src="sk111.jpg" alt="SK111" class="h-8 w-auto object-contain">
             </div>
         </div>
-        <div class="flex gap-2">
-            <button onclick="openModal('authPopup')" class="bg-sk-yellow text-black text-xs font-bold px-4 py-1.5 rounded-sm shadow-[0_0_10px_#ffff0066]">Login</button>
-            <button onclick="openModal('authPopup')" class="border border-sk-yellow text-sk-yellow text-xs font-bold px-4 py-1.5 rounded-sm bg-black/20">Register</button>
+
+        <div class="flex items-center gap-2">
+            
+            <div class="bg-black/40 border border-sk-gold/50 rounded-full px-1.5 py-1 flex items-center gap-2 h-8 min-w-[100px] relative">
+                <div class="w-5 h-5 rounded-full overflow-hidden border border-white shrink-0">
+                    <img src="https://flagcdn.com/pk.svg" class="w-full h-full object-cover">
+                </div>
+                
+                <span class="text-sk-gold font-bold text-xs">0.00</span>
+                
+                <i class="fa-solid fa-arrows-rotate text-gray-400 text-[10px] ml-auto mr-1 cursor-pointer hover:text-white transition hover:rotate-180"></i>
+            </div>
+
+            <button class="relative bg-gradient-to-b from-yellow-300 to-yellow-500 text-black text-xs font-bold px-3 py-1.5 rounded-lg shadow-lg border border-white/20">
+                Deposit
+                <span class="absolute -top-2 -right-1 bg-red-600 text-white text-[8px] font-bold px-1 rounded-bl-lg rounded-tr-lg border border-white/50 shadow">+1%</span>
+            </button>
+
         </div>
     </header>
 
@@ -122,11 +135,9 @@
     <div id="downloadBar" class="fixed bottom-[65px] left-0 right-0 mx-2 z-[90] bg-sk-input border border-sk-gold/30 rounded-lg p-3 shadow-2xl flex flex-col gap-2 slide-up-active">
         <button onclick="this.parentElement.style.display='none'" class="absolute top-1 right-2 text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
         <div class="flex items-center gap-3">
-            
             <div class="w-12 h-12 rounded-lg bg-black/40 border border-sk-gold/50 flex items-center justify-center shrink-0 overflow-hidden">
                 <img src="skdownload.jpg" alt="App Icon" class="w-full h-full object-cover">
             </div>
-            
             <div class="flex flex-col">
                 <span class="text-xs text-white">Download and use the APP to receive</span>
                 <span class="text-sk-red font-bold text-lg">Rs11,777</span>
@@ -138,7 +149,7 @@
         </div>
     </div>
 
-    <main class="pt-[90px] px-2 space-y-3">
+    <main class="pt-[95px] px-2 space-y-3">
         
         <div class="relative w-full aspect-[2/1] rounded-xl overflow-hidden border border-sk-gold/50 shadow-lg bg-sk-dark">
             <div id="hero-slider" class="relative w-full h-full">
@@ -222,7 +233,6 @@
 
         <div class="relative w-full h-32 rounded-lg overflow-hidden shadow-[0_0_15px_#ffd70033] flex flex-col items-center justify-center border border-sk-gold/50 my-2 bg-sk-dark">
             <img src="jackpot.jpg" class="absolute inset-0 w-full h-full object-cover z-0" alt="Jackpot Background">
-            
             <div class="relative z-10 text-center">
                 <h3 class="text-sk-gold text-[10px] font-black uppercase tracking-[0.2em] mb-0.5 drop-shadow-md">Jackpot Pool</h3>
                 <div id="jackpot-counter" class="text-[22px] font-black text-gold-gradient font-mono tracking-wider drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)] tabular-nums leading-none">
@@ -237,11 +247,26 @@
     </main>
 
     <nav class="fixed bottom-0 w-full bg-sk-dark border-t border-sk-input h-[65px] flex justify-around items-center pb-1 z-[50]">
-        <div class="flex flex-col items-center text-sk-yellow"><i class="fa-solid fa-house text-xl mb-1"></i><span class="text-[9px]">Home</span></div>
-        <div class="flex flex-col items-center text-gray-400"><i class="fa-solid fa-gift text-xl mb-1"></i><span class="text-[9px]">Offers</span></div>
-        <div class="flex flex-col items-center text-gray-400"><i class="fa-solid fa-right-to-bracket text-xl mb-1"></i><span class="text-[9px]">Login</span></div>
-        <div class="flex flex-col items-center text-gray-400"><i class="fa-solid fa-download text-xl mb-1"></i><span class="text-[9px]">App</span></div>
-        <div class="flex flex-col items-center text-gray-400"><i class="fa-regular fa-user text-xl mb-1"></i><span class="text-[9px]">Profile</span></div>
+        <div class="flex flex-col items-center text-sk-yellow">
+            <i class="fa-solid fa-house text-xl mb-1"></i>
+            <span class="text-[9px]">Home</span>
+        </div>
+        <div class="flex flex-col items-center text-gray-400 hover:text-white transition">
+            <i class="fa-solid fa-gift text-xl mb-1"></i>
+            <span class="text-[9px]">Offers</span>
+        </div>
+        <div class="flex flex-col items-center text-gray-400 hover:text-white transition">
+            <i class="fa-solid fa-wallet text-xl mb-1"></i>
+            <span class="text-[9px]">Deposit</span>
+        </div>
+        <div class="flex flex-col items-center text-gray-400 hover:text-white transition">
+            <i class="fa-solid fa-headset text-xl mb-1"></i>
+            <span class="text-[9px]">Support</span>
+        </div>
+        <div class="flex flex-col items-center text-gray-400 hover:text-white transition">
+            <i class="fa-regular fa-user text-xl mb-1"></i>
+            <span class="text-[9px]">Profile</span>
+        </div>
     </nav>
 
     <div id="authPopup" class="fixed inset-0 z-[110] flex items-center justify-center bg-black/90 backdrop-blur-sm hidden">
