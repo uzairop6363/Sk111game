@@ -6,7 +6,6 @@
     <title>SK111 - Official</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <script>
@@ -14,64 +13,37 @@
             theme: {
                 extend: {
                     colors: {
-                        sk: {
-                            bg: '#0a4229',
-                            dark: '#052e1c',
-                            gold: '#ffd700',
-                            yellow: '#ffff00',
-                            red: '#e60000',
-                            input: '#0d5536'
-                        }
+                        sk: { bg: '#0a4229', dark: '#052e1c', gold: '#ffd700', yellow: '#ffff00', red: '#e60000', input: '#0d5536' }
                     },
-                    animation: {
-                        marquee: 'marquee 20s linear infinite',
-                    },
-                    keyframes: {
-                        marquee: {
-                            '0%': { transform: 'translateX(100%)' },
-                            '100%': { transform: 'translateX(-100%)' },
-                        }
-                    }
+                    animation: { marquee: 'marquee 20s linear infinite' },
+                    keyframes: { marquee: { '0%': { transform: 'translateX(100%)' }, '100%': { transform: 'translateX(-100%)' } } }
                 }
             }
         }
     </script>
-    
     <style>
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
         .text-gold-gradient {
             background: linear-gradient(to bottom, #fff8db, #ffd700, #ccaadd);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             filter: drop-shadow(0 2px 2px rgba(0,0,0,0.5));
         }
 
-        /* Popups Animation */
-        @keyframes bounceIn {
-            0% { transform: scale(0.3); opacity: 0; }
-            50% { transform: scale(1.05); opacity: 1; }
-            70% { transform: scale(0.9); }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        .popup-active {
-            animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
+        /* Popup Bounce */
+        @keyframes bounceIn { 0% { transform: scale(0.3); opacity: 0; } 50% { transform: scale(1.05); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
+        .popup-active { animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
 
-        /* Slide Up Animation for DEPOSIT PAGE */
-        .slide-up-full {
-            transform: translateY(0) !important;
-        }
+        /* Slide Up Animation for DEPOSIT IFRAME */
+        .slide-up-enter { transform: translateY(100%); }
+        .slide-up-enter-active { transform: translateY(0); transition: transform 0.3s ease-out; }
+        .slide-up-exit { transform: translateY(0); }
+        .slide-up-exit-active { transform: translateY(100%); transition: transform 0.3s ease-in; }
 
-        /* Bottom Download Bar Animation */
-        @keyframes slideUp {
-            from { transform: translateY(100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        .slide-up-active {
-            animation: slideUp 0.5s ease-out forwards;
-        }
+        /* Bottom Bar Slide */
+        @keyframes slideUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .slide-up-active { animation: slideUp 0.5s ease-out forwards; }
     </style>
 </head>
 <body class="bg-sk-bg text-white pb-24 overflow-x-hidden font-sans"><div class="fixed top-0 w-full z-[60] bg-sk-red h-[35px] flex items-center justify-between px-2 text-xs shadow-md">
@@ -106,7 +78,7 @@
         </div>
     </header>
 
-    <div id="depositModal" class="fixed inset-0 z-[200] bg-sk-bg hidden flex-col transition-transform duration-300 transform translate-y-full">
+    <div id="depositModal" class="fixed inset-0 z-[200] bg-sk-bg hidden flex-col">
         <div class="bg-sk-dark p-2 flex justify-end shadow-md">
             <button onclick="closeDepositModal()" class="text-white w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center">
                 <i class="fa-solid fa-xmark text-lg"></i>
@@ -277,7 +249,7 @@
     </div>
 
     <script>
-        // 1. GAME DATA (Updated Image Names)
+        // 1. GAME DATA
         const gamesDB = [
             { name: 'Aviator', type: 'hot', img: 'aviator.jpg', hot: true },
             { name: 'Money Coming', type: 'hot', img: 'money.jpg', hot: true },
@@ -288,7 +260,7 @@
             { name: 'Plinko', type: 'hot', img: 'plinko.jpg', hot: true },
             { name: 'Super Fruits', type: 'hot', img: 'superfruits.jpg', hot: true },
             { name: 'Fortune Gems', type: 'hot', img: 'fortune.jpg', hot: true },
-            // Placeholder data for other tabs to work
+            // Placeholder data
             { name: 'Teen Patti', type: 'cards', img: 'cards.jpg', hot: false },
             { name: 'Crypto Crash', type: 'blockchain', img: 'blockchain.jpg', hot: false },
             { name: 'Mega Fishing', type: 'fishing', img: 'fishing.jpg', hot: false },
@@ -296,7 +268,7 @@
             { name: 'Football Bet', type: 'sports', img: 'sports.jpg', hot: false },
         ];
 
-        // Function to Filter and Display Games
+        // Filter Games Function
         function filterGames(category) {
             const container = document.getElementById('games-container');
             const buttons = document.querySelectorAll('.category-btn');
@@ -306,11 +278,9 @@
                 const text = btn.querySelector('span');
 
                 if(btn.id === 'tab-' + category) {
-                    // Active State: Yellow Border + Shadow
                     iconBox.className = 'icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center shadow-[0_0_10px_#ffd700] border-2 border-yellow-400 transition-all';
                     text.className = 'text-[10px] text-white font-bold';
                 } else {
-                    // Inactive State: Gray Border
                     iconBox.className = 'icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400 transition-all';
                     text.className = 'text-[10px] text-gray-400';
                 }
@@ -359,28 +329,17 @@
             setInterval(nextSlide, 3000);
         }
 
-        // 4. DEPOSIT MODAL LOGIC (Slide Up Iframe)
+        // 4. DEPOSIT MODAL LOGIC (NO ANIMATION)
         function openDepositModal() {
-            const modal = document.getElementById('depositModal');
-            modal.classList.remove('hidden');
-            requestAnimationFrame(() => {
-                modal.classList.add('slide-up-full');
-                modal.classList.remove('translate-y-full');
-            });
+            document.getElementById('depositModal').classList.remove('hidden');
         }
 
         function closeDepositModal() {
-            const modal = document.getElementById('depositModal');
-            modal.classList.remove('slide-up-full');
-            modal.classList.add('translate-y-full');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
+            document.getElementById('depositModal').classList.add('hidden');
         }
 
         // 5. INITIALIZATION
         window.addEventListener('DOMContentLoaded', () => {
-            // Show Event Popup after small delay
             setTimeout(() => document.getElementById('eventPopup').style.display = 'flex', 300);
             animateJackpot();
             filterGames('hot');
