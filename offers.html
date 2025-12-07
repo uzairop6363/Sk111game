@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>777XP Casino - Offers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- RESET & BASIC SETUP --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: #124028; /* Main Dark Background */
+            color: #ffffff;
+            font-size: 14px;
+            padding-bottom: 80px; /* Space for bottom nav */
+        }
+
+        /* --- HEADER & TABS --- */
+        .header-container {
+            position: sticky;
+            top: 0;
+            background-color: #124028;
+            z-index: 100;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .top-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        .scrollable-tabs {
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 5px 10px;
+            scrollbar-width: none;
+            width: 100%;
+        }
+        .scrollable-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-item {
+            padding: 10px 18px;
+            color: #8daea0;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .tab-item.active {
+            color: #fbfd56; /* Yellow Highlight */
+        }
+
+        .tab-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40%;
+            height: 3px;
+            background-color: #fbfd56;
+            border-radius: 2px;
+            box-shadow: 0 0 5px #fbfd56; /* Glow effect */
+        }
+
+        .badge {
+            position: absolute;
+            top: 2px;
+            right: -2px;
+            background-color: #ff3b30;
+            color: white;
+            font-size: 9px;
+            padding: 1px 5px;
+            border-radius: 10px;
+            font-weight: bold;
+            border: 1px solid #124028;
+        }
+
+        /* --- CONTENT AREA & LAYOUT --- */
+        .content-section {
+            display: none;
+            padding: 15px;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-section.active-view {
+            display: block;
+        }
+
+        .mission-layout {
+            display: flex;
+            gap: 12px;
+        }
+
+        /* --- SIDEBAR STYLE --- */
+        .sidebar-menu {
+            width: 28%;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .side-btn {
+            background: #1a5c38;
+            color: #8daea0;
+            padding: 12px 5px;
+            border-radius: 15px 0 0 15px; /* Rounded Left only in reference */
+            text-align: center;
+            font-size: 11px;
+            border: 1px solid #256b46;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        /* Active Sidebar Item */
+        .side-btn.active {
+            background: linear-gradient(90deg, #fbfd56, #e0e23e);
+            color: #124028;
+            font-weight: bold;
+            border: none;
+            box-shadow: -2px 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .main-list {
+            width: 72%;
+            padding-bottom: 20px;
+        }
+
+        /* --- EVENT IMAGES STYLE --- */
+        .event-banner-img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #fbfd56; /* Gold Border */
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            display: block;
+            object-fit: cover;
+        }
+
+        /* --- MISSION CARD STYLE --- */
+        .mission-card {
+            background-color: #1a5c38;
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            border: 1px solid #256b46;
+        }
+
+        .card-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .icon-box {
+            font-size: 22px;
+            width: 30px;
+            text-align: center;
+        }
+
+        .card-info h3 {
+            font-size: 13px;
+            color: #e8f5e9;
+            margin-bottom: 2px;
+            font-weight: 500;
+        }
+
+        .reward-text {
+            color: #ffc107;
+            font-weight: bold;
+            font-size: 11px;
+        }
+        .reward-text span {
+            color: #fbfd56;
+        }
+
+        .action-btn {
+            padding: 6px 15px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 12px;
+            border: none;
+            cursor: pointer;
+            min-width: 70px;
+            text-align: center;
+        }
+
+        .btn-claim {
+            background: linear-gradient(180deg, #00e622, #009917);
+            color: white;
+            box-shadow: 0 3px 0 #005c0e;
+        }
+        .btn-claim:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 #005c0e;
+        }
+
+        .btn-go {
+            background: linear-gradient(180deg, #ffff6b, #d4d626);
+            color: #124028;
+            box-shadow: 0 3px 0 #8f9112;
+        }
+        .btn-go:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 #8f9112;
+        }
+
+        /* --- BOTTOM NAVIGATION --- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #154230;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            border-top: 1px solid #1e5e3a;
+            z-index: 999;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #8daea0;
+            font-size: 10px;
+            cursor: pointer;
+            padding: 5px;
+            flex: 1;
+        }
+
+        .nav-item i {
+            font-size: 18px;
+            margin-bottom: 4px;
+            transition: 0.2s;
+        }
+
+        .nav-item.active {
+            color: #fbfd56;
+        }
+        
+        .nav-item.active i {
+             transform: translateY(-2px);
+             text-shadow: 0 0 8px rgba(251, 253, 86, 0.6);
+        }
+
+        .nav-badge {
+            position: absolute;
+            top: 2px;
+            right: 20%;
+            background: #ff3b30;
+            color: white;
+            border-radius: 10px;
+            padding: 1px 5px;
+            font-size: 9px;
+            border: 1px solid #154230;
+        }
+
+        /* Scroll Helpers */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <div class="top-nav">
+            <i class="fa-solid fa-chevron-left" style="color: white; font-size: 18px; padding: 5px;"></i>
+            
+            <div class="scrollable-tabs">
+                <div class="tab-item" onclick="switchTab('event', this)">Event <span class="badge">1</span></div>
+                <div class="tab-item active" onclick="switchTab('mission', this)">Mission <span class="badge">2</span></div>
+                <div class="tab-item" onclick="switchTab('vip', this)">VIP</div>
+                <div class="tab-item" onclick="switchTab('rebate', this)">Rebate</div>
+                <div class="tab-item" onclick="switchTab('unclaimed', this)">Unclaimed</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="content-area">
+
+        <div id="event" class="content-section">
+            <div class="mission-layout">
+                 <div class="sidebar-menu">
+                    <div class="side-btn active">All</div>
+                    <div class="side-btn">NEW</div>
+                    <div class="side-btn">History</div>
+                </div>
+
+                <div class="main-list">
+                    <img src="event1.jpg" alt="Event 1" class="event-banner-img">
+                    <img src="event2.jpg" alt="Event 2" class="event-banner-img">
+                    <img src="event3.jpg" alt="Event 3" class="event-banner-img">
+                    <img src="event4.jpg" alt="Event 4" class="event-banner-img">
+                    <img src="event5.jpg" alt="Event 5" class="event-banner-img">
+                </div>
+            </div>
+        </div>
+
+        <div id="mission" class="content-section active-view">
+            <div class="mission-layout">
+                <div class="sidebar-menu">
+                    <div class="side-btn active">Newplayer<br><span style="color:#d32f2f; font-weight:bold; font-size:9px;">00:45:21</span></div>
+                    <div class="side-btn">Daily Mission</div>
+                    <div class="side-btn">Weekly Mission</div>
+                    <div class="side-btn">History</div>
+                </div>
+
+                <div class="main-list">
+                    <div class="mission-card">
+                        <div class="card-left">
+                            <i class="fa-solid fa-clipboard-check icon-box" style="color: #4CAF50;"></i>
+                            <div class="card-info">
+                                <h3>Sign up an account</h3>
+                                <div class="reward-text">Rs <span>37.00-1,000.00</span></div>
+                            </div>
+                        </div>
+                        <button class="action-btn btn-claim">Claim</button>
+                    </div>
+
+                    <div class="mission-card">
+                        <div class="card-left">
+                            <i class="fa-brands fa-telegram icon-box" style="color:#0088cc;"></i>
+                            <div class="card-info">
+                                <h3>Add any social account</h3>
+                                <div class="reward-text">Rs <span>30.00-1,000.00</span></div>
+                            </div>
+                        </div>
+                        <button class="action-btn btn-claim">Claim</button>
+                    </div>
+
+                    <div class="mission-card">
+                        <div class="card-left">
+                            <i class="fa-solid fa-mobile-screen icon-box" style="color: #fff;"></i>
+                            <div class="card-info">
+                                <h3>Login to the APP</h3>
+                                <div class="reward-text">Rs <span>77.00-7,777.00</span></div>
+                            </div>
+                        </div>
+                        <button class="action-btn btn-go">Go</button>
+                    </div>
+                    
+                     <div class="mission-card">
+                        <div class="card-left">
+                            <i class="fa-solid fa-shield-halved icon-box" style="color: #4CAF50;"></i>
+                            <div class="card-info">
+                                <h3>SMS verification</h3>
+                                <div class="reward-text">Rs <span>30.00-1,000.00</span></div>
+                            </div>
+                        </div>
+                        <button class="action-btn btn-go">Go</button>
+                    </div>
+
+                     <div class="mission-card">
+                        <div class="card-left">
+                            <i class="fa-solid fa-download icon-box" style="color: #2196F3;"></i>
+                            <div class="card-info">
+                                <h3>Save desktop shortcut</h3>
+                                <div class="reward-text">Rs <span>30.00-1,000.00</span></div>
+                            </div>
+                        </div>
+                        <button class="action-btn btn-go">Go</button>
+                    </div>
+                    
+                    <div style="color: #6d9683; font-size: 11px; margin-top: 15px; background: rgba(0,0,0,0.1); padding: 10px; border-radius: 5px;">
+                        <h4 style="color:#8daea0; margin-bottom:5px;">I. Mission content:</h4>
+                        <p>Official website: 777XP.com</p>
+                        <br>
+                        <p style="opacity: 0.8;">Event Details:<br>1. The amount won in this promotion must reach Rs 10,000 before withdrawal.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="vip" class="content-section">
+             <div style="text-align: center; padding: 40px 20px;">
+                <i class="fa-solid fa-crown" style="font-size: 50px; color: #fbfd56; margin-bottom: 15px;"></i>
+                <h2 style="color: #fbfd56; text-transform: uppercase; letter-spacing: 1px;">VIP Lounge</h2>
+                <p style="color: #8daea0; margin-top: 10px;">Exclusive rewards for high rollers.</p>
+                <div style="background: #1a5c38; padding: 20px; border-radius: 10px; margin-top: 30px; border: 1px solid #fbfd56;">
+                    <h3 style="color: white;">Current Level: VIP 0</h3>
+                    <div style="background: #124028; height: 10px; border-radius: 5px; margin-top: 10px; overflow: hidden;">
+                        <div style="width: 20%; height: 100%; background: #fbfd56;"></div>
+                    </div>
+                    <p style="font-size: 10px; margin-top: 5px; text-align: right; color: #fbfd56;">200 / 1000 XP</p>
+                </div>
+             </div>
+        </div>
+
+    </div>
+
+    <nav class="bottom-nav">
+        <div class="nav-item">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </div>
+        <div class="nav-item active" style="position: relative;">
+            <i class="fa-solid fa-gift"></i>
+            <span>Offers</span>
+            <div class="nav-badge">3</div>
+        </div>
+        <div class="nav-item">
+            <i class="fa-solid fa-wallet"></i>
+            <span style="position: relative;">Deposit <span style="position:absolute; top:-16px; right:-15px; background:linear-gradient(45deg, #ff5722, #ff9800); color:white; font-size:8px; padding:2px 4px; border-radius:3px; font-weight:bold;">+1%</span></span>
+        </div>
+        <div class="nav-item">
+            <i class="fa-solid fa-headset"></i>
+            <span>Support</span>
+        </div>
+        <div class="nav-item">
+            <i class="fa-regular fa-user"></i>
+            <span>Profile</span>
+        </div>
+    </nav>
+
+    <script>
+        function switchTab(tabName, element) {
+            // 1. Hide all content sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(sec => sec.classList.remove('active-view'));
+
+            // 2. Remove 'active' class from all tabs
+            const tabs = document.querySelectorAll('.tab-item');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // 3. Show the selected content
+            const targetSection = document.getElementById(tabName);
+            if(targetSection) {
+                targetSection.classList.add('active-view');
+            }
+
+            // 4. Highlight the clicked tab
+            if(element) {
+                element.classList.add('active');
+            }
+        }
+    </script>
+
+</body>
+</html>
