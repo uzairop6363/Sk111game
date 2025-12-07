@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invite - 777xp8</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- GLOBAL VARIABLES & RESET --- */
+        :root {
+            --bg-dark: #103a32; 
+            --bg-card: #1b4d41; /* Slightly lighter for cards */
+            --bg-input: #123f36;
+            --primary-yellow: #eeff41; 
+            --text-white: #ffffff;
+            --text-gray: #aabcb7;
+            --text-gold: #ffaa00; /* For some earnings numbers */
+            --danger-red: #ff4d4d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            padding-bottom: 90px; /* Space for bottom bar */
+            overflow-x: hidden;
+            /* SLIDE ANIMATION */
+            animation: slideInRight 0.4s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* --- HEADER --- */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Title centered */
+            padding: 15px;
+            background-color: var(--bg-dark);
+            position: relative;
+        }
+
+        .back-btn {
+            position: absolute;
+            left: 15px;
+            font-size: 18px;
+            color: white;
+            text-decoration: none;
+        }
+
+        .page-title {
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        /* --- TOP TABS (SCROLLABLE) --- */
+        .top-tabs {
+            display: flex;
+            overflow-x: auto;
+            background-color: var(--bg-dark);
+            padding: 0 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Hide scrollbar */
+        .top-tabs::-webkit-scrollbar { display: none; }
+
+        .tab-item {
+            padding: 12px 15px;
+            white-space: nowrap;
+            font-size: 14px;
+            color: var(--text-gray);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .tab-item.active {
+            color: var(--primary-yellow);
+            font-weight: bold;
+        }
+
+        .tab-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 3px;
+            background-color: var(--primary-yellow);
+            border-radius: 2px;
+        }
+
+        /* --- AGENT INFO CARD --- */
+        .agent-card {
+            background-color: var(--bg-card);
+            margin: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            font-size: 12px;
+        }
+
+        .agent-row {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .agent-label {
+            color: var(--text-gray);
+        }
+
+        .agent-value {
+            color: white;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 13px;
+        }
+        
+        .medal-icon { color: #cd7f32; font-size: 14px; } /* Bronzeish color */
+        .infinite-link { color: var(--primary-yellow); text-decoration: underline; cursor: pointer; }
+
+        /* --- INVITE FRIENDS SECTION --- */
+        .invite-section {
+            background-color: var(--bg-card);
+            margin: 0 15px 15px 15px;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .invite-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 13px;
+        }
+
+        .invite-code-box {
+            color: var(--text-gray);
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .copy-icon-yellow { color: var(--primary-yellow); cursor: pointer; }
+
+        /* QR and Link Container */
+        .qr-link-container {
+            display: flex;
+            gap: 15px;
+        }
+
+        .qr-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .qr-img {
+            width: 80px;
+            height: 80px;
+            background: white;
+            padding: 2px;
+            border-radius: 5px;
+        }
+        
+        .save-qr-btn {
+            background-color: var(--primary-yellow);
+            color: #333;
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            border: none;
+            width: 100%;
+        }
+
+        .link-social-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .link-label {
+            font-size: 12px;
+            color: var(--text-gray);
+            margin-bottom: 5px;
+        }
+
+        .link-input-wrapper {
+            background-color: var(--bg-input);
+            border: 1px solid #2a6658;
+            border-radius: 5px;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .link-text {
+            font-size: 11px;
+            color: var(--text-gray);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100px;
+        }
+
+        /* Social Icons */
+        .social-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .social-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .s-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        .s-share { background-color: transparent; border: 1px solid var(--primary-yellow); color: var(--primary-yellow); }
+        .s-tele { background-color: #2da5e1; }
+        .s-fb { background-color: #1877f2; }
+        .s-insta { background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); }
+        .s-what { background-color: #25d366; }
+
+        .s-label { font-size: 9px; color: var(--text-gray); }
+
+        /* --- STATS PANELS --- */
+        .stats-panel {
+            background-color: var(--bg-card);
+            margin: 0 15px 15px 15px;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .earnings-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .stat-box h4 {
+            font-size: 12px;
+            color: var(--text-gray);
+            font-weight: normal;
+            margin-bottom: 5px;
+        }
+
+        .stat-value { font-size: 16px; font-weight: bold; }
+        .val-yellow { color: var(--text-gold); }
+        .val-white { color: white; }
+
+        /* Detailed Panel (Commission & Reward) */
+        .detail-panel {
+            background-color: var(--bg-card);
+            margin: 0 15px 15px 15px;
+            border-radius: 10px;
+            padding: 0; /* Padding inside elements */
+            overflow: hidden;
+        }
+
+        .panel-header {
+            padding: 12px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .panel-header span { font-size: 14px; }
+        .panel-header i { font-size: 12px; color: var(--text-gray); }
+
+        .panel-body {
+            padding: 15px;
+        }
+
+        .timer-text {
+            font-size: 10px;
+            color: var(--text-gray);
+            margin-bottom: 10px;
+        }
+
+        .stat-grid-4 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            row-gap: 15px;
+            column-gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .claim-btn {
+            background-color: #949494; /* Disabled look */
+            color: #d1d1d1;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 5px;
+            float: right;
+            font-size: 12px;
+            cursor: default;
+        }
+
+        /* --- BOTTOM NAVIGATION (STUCK) --- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background-color: #0f3d32;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #1a5246;
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--text-gray);
+            font-size: 10px;
+            gap: 5px;
+            position: relative;
+            width: 20%;
+        }
+
+        .nav-item i { font-size: 20px; margin-bottom: 2px; }
+        .nav-item.active { color: var(--primary-yellow); }
+
+        .nav-badge {
+            position: absolute;
+            top: -5px;
+            right: 15px;
+            background-color: var(--danger-red);
+            color: white;
+            font-size: 10px;
+            height: 16px;
+            min-width: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            padding: 0 4px;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <a href="profile.html" class="back-btn"><i class="fa-solid fa-chevron-left"></i></a>
+        <div class="page-title">Invite</div>
+    </header>
+
+    <div class="top-tabs">
+        <div class="tab-item active">Home</div>
+        <div class="tab-item">Promotion Sharing</div>
+        <div class="tab-item">My Data</div>
+        <div class="tab-item">Performance</div>
+        <div class="tab-item">Commission</div>
+    </div>
+
+    <div class="agent-card">
+        <div class="agent-row">
+            <span class="agent-label">Agent account</span>
+            <div class="agent-value">
+                <i class="fa-solid fa-medal medal-icon"></i> 867334614
+            </div>
+        </div>
+        <div class="agent-row">
+            <span class="agent-label">Agent mode</span>
+            <div class="agent-value">
+                <i class="fa-solid fa-circle-info" style="color:var(--primary-yellow); font-size:10px;"></i>
+                <span class="infinite-link">Infinite range</span>
+            </div>
+        </div>
+        <div class="agent-row">
+            <span class="agent-label">Number of audits</span>
+            <div class="agent-value">1.00</div>
+        </div>
+        <div class="agent-row">
+            <span class="agent-label">Settlement date</span>
+            <div class="agent-value">07/12/2025</div>
+        </div>
+    </div>
+
+    <div class="invite-section">
+        <div class="invite-header">
+            <span>Invite friends</span>
+            <div class="invite-code-box">
+                <span>My invitation code 867334614</span>
+                <i class="fa-regular fa-copy copy-icon-yellow"></i>
+            </div>
+        </div>
+
+        <div class="qr-link-container">
+            <div class="qr-area">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.777xp7.com" class="qr-img" alt="QR">
+                <button class="save-qr-btn">Save invitation code</button>
+            </div>
+
+            <div class="link-social-area">
+                <div>
+                    <div class="link-label">Referral link</div>
+                    <div class="link-input-wrapper">
+                        <span class="link-text">https://www.777xp7.com/?dl=ec...</span>
+                        <div style="display:flex; gap:10px; color:var(--primary-yellow);">
+                            <i class="fa-solid fa-chevron-down" style="font-size:10px;"></i>
+                            <i class="fa-regular fa-copy"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="social-row">
+                    <div class="social-item">
+                        <div class="s-icon s-share"><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
+                        <span class="s-label">Share</span>
+                    </div>
+                    <div class="social-item">
+                        <div class="s-icon s-tele"><i class="fa-brands fa-telegram"></i></div>
+                        <span class="s-label">Telegram</span>
+                    </div>
+                    <div class="social-item">
+                        <div class="s-icon s-fb"><i class="fa-brands fa-facebook-f"></i></div>
+                        <span class="s-label">Facebook</span>
+                    </div>
+                    <div class="social-item">
+                        <div class="s-icon s-insta"><i class="fa-brands fa-instagram"></i></div>
+                        <span class="s-label">Instagram</span>
+                    </div>
+                    <div class="social-item">
+                        <div class="s-icon s-what"><i class="fa-brands fa-whatsapp"></i></div>
+                        <span class="s-label">Whats...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="stats-panel">
+        <div class="earnings-grid">
+            <div class="stat-box">
+                <h4>Total Earnings</h4>
+                <div class="stat-value val-yellow">0.00</div>
+            </div>
+            <div class="stat-box">
+                <h4>Cumulative number of invitees</h4>
+                <div class="stat-value val-white">0</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="detail-panel">
+        <div class="panel-header">
+            <span>Commission (</span>
+            <i class="fa-solid fa-chevron-right"></i>
+        </div>
+        <div class="panel-body">
+            <div class="timer-text">Time until next settlement 0 day(s) 08:29:28)</div>
+            <div class="stat-grid-4">
+                <div class="stat-box">
+                    <h4>Yesterday's direct results</h4>
+                    <div class="stat-value val-white">0.00</div>
+                </div>
+                <div class="stat-box">
+                    <h4>Total Commission</h4>
+                    <div class="stat-value val-white">0.00</div>
+                </div>
+                <div class="stat-box">
+                    <h4>Claimed</h4>
+                    <div class="stat-value val-white">0.00</div>
+                </div>
+                <div class="stat-box">
+                    <h4>Unclaimed</h4>
+                    <div class="stat-value val-yellow">0.00</div>
+                </div>
+            </div>
+            <button class="claim-btn">Claim</button>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+
+    <div class="detail-panel">
+        <div class="panel-header">
+            <span>Invite 1 person and get a reward up to Rs5,000</span>
+            <i class="fa-solid fa-chevron-right"></i>
+        </div>
+        <div class="panel-body">
+            <div class="stat-grid-4">
+                <div class="stat-box">
+                    <h4>Invite valid number of people</h4>
+                    <div class="stat-value val-white">0</div>
+                </div>
+                <div class="stat-box">
+                    <h4>Reward</h4>
+                    <div class="stat-value val-white">0.00</div>
+                </div>
+                <div class="stat-box">
+                    <h4>Claimed</h4>
+                    <div class="stat-value val-white">0.00</div>
+                </div>
+                <div class="stat-box">
+                    <h4>Unclaimed</h4>
+                    <div class="stat-value val-yellow">0.00</div>
+                </div>
+            </div>
+            <button class="claim-btn">Claim</button>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
+        
+        <a href="offers.html" class="nav-item">
+            <i class="fa-solid fa-gift"></i>
+            <span>Offers</span>
+            <div class="nav-badge">3</div>
+        </a>
+        
+        <a href="deposit.html" class="nav-item">
+            <i class="fa-solid fa-wallet"></i>
+            <span>Deposit</span>
+            <div class="nav-badge">+1%</div>
+        </a>
+        
+        <a href="#" class="nav-item">
+            <i class="fa-solid fa-headset"></i>
+            <span>Support</span>
+        </a>
+        
+        <a href="profile.html" class="nav-item">
+            <i class="fa-solid fa-user"></i>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+</body>
+</html>
