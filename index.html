@@ -31,11 +31,11 @@
             filter: drop-shadow(0 2px 2px rgba(0,0,0,0.5));
         }
 
-        /* Popup Bounce Animation */
+        /* Popup Bounce */
         @keyframes bounceIn { 0% { transform: scale(0.3); opacity: 0; } 50% { transform: scale(1.05); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
         .popup-active { animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
 
-        /* Slide Up Animation for Bottom Bar */
+        /* Slide Up Animation */
         @keyframes slideUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         .slide-up-active { animation: slideUp 0.5s ease-out forwards; }
     </style>
@@ -71,40 +71,20 @@
         </div>
     </header>
 
-    <div id="depositModal" class="fixed inset-0 z-[200] bg-sk-bg hidden flex-col w-screen h-screen transition-transform duration-300 transform translate-y-full">
-        <div class="bg-sk-dark p-2 flex justify-end shadow-md shrink-0 h-[50px] items-center">
-            <button onclick="closeModal('depositModal')" class="text-white w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
-        </div>
-        <iframe src="deposit.html" class="flex-1 w-full h-full border-none bg-sk-bg block"></iframe>
+    <div id="depositModal" class="fixed inset-0 z-[200] bg-sk-bg hidden w-screen h-screen transition-transform duration-300 transform translate-y-full">
+        <iframe src="deposit.html" class="w-full h-full border-none block"></iframe>
     </div>
 
-    <div id="offersModal" class="fixed inset-0 z-[200] bg-sk-bg hidden flex-col w-screen h-screen transition-transform duration-300 transform translate-y-full">
-        <div class="bg-sk-dark p-2 flex justify-end shadow-md shrink-0 h-[50px] items-center">
-            <button onclick="closeModal('offersModal')" class="text-white w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
-        </div>
-        <iframe src="offers.html" class="flex-1 w-full h-full border-none bg-sk-bg block"></iframe>
+    <div id="offersModal" class="fixed inset-0 z-[200] bg-sk-bg hidden w-screen h-screen transition-transform duration-300 transform translate-y-full">
+        <iframe src="offers.html" class="w-full h-full border-none block"></iframe>
     </div>
 
-    <div id="supportModal" class="fixed inset-0 z-[200] bg-sk-bg hidden flex-col w-screen h-screen transition-transform duration-300 transform translate-y-full">
-        <div class="bg-sk-dark p-2 flex justify-end shadow-md shrink-0 h-[50px] items-center">
-            <button onclick="closeModal('supportModal')" class="text-white w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
-        </div>
-        <iframe src="support.html" class="flex-1 w-full h-full border-none bg-sk-bg block"></iframe>
+    <div id="supportModal" class="fixed inset-0 z-[200] bg-sk-bg hidden w-screen h-screen transition-transform duration-300 transform translate-y-full">
+        <iframe src="support.html" class="w-full h-full border-none block"></iframe>
     </div>
 
-    <div id="profileModal" class="fixed inset-0 z-[200] bg-sk-bg hidden flex-col w-screen h-screen transition-transform duration-300 transform translate-y-full">
-        <div class="bg-sk-dark p-2 flex justify-end shadow-md shrink-0 h-[50px] items-center">
-            <button onclick="closeModal('profileModal')" class="text-white w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
-        </div>
-        <iframe src="profile.html" class="flex-1 w-full h-full border-none bg-sk-bg block"></iframe>
+    <div id="profileModal" class="fixed inset-0 z-[200] bg-sk-bg hidden w-screen h-screen transition-transform duration-300 transform translate-y-full">
+        <iframe src="profile.html" class="w-full h-full border-none block"></iframe>
     </div>
 
     <div id="eventPopup" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm hidden">
@@ -179,13 +159,9 @@
 
     <nav class="fixed bottom-0 w-full bg-sk-dark border-t border-sk-input h-[65px] flex justify-around items-center pb-1 z-[50]">
         <div class="flex flex-col items-center text-sk-yellow"><i class="fa-solid fa-house text-xl mb-1"></i><span class="text-[9px]">Home</span></div>
-        
         <div onclick="openModal('offersModal')" class="flex flex-col items-center text-gray-400 hover:text-white transition cursor-pointer"><i class="fa-solid fa-gift text-xl mb-1"></i><span class="text-[9px]">Offers</span></div>
-        
         <div onclick="openModal('depositModal')" class="flex flex-col items-center text-gray-400 hover:text-white transition cursor-pointer"><i class="fa-solid fa-wallet text-xl mb-1"></i><span class="text-[9px]">Deposit</span></div>
-        
         <div onclick="openModal('supportModal')" class="flex flex-col items-center text-gray-400 hover:text-white transition cursor-pointer"><i class="fa-solid fa-headset text-xl mb-1"></i><span class="text-[9px]">Support</span></div>
-        
         <div onclick="openModal('profileModal')" class="flex flex-col items-center text-gray-400 hover:text-white transition cursor-pointer"><i class="fa-regular fa-user text-xl mb-1"></i><span class="text-[9px]">Profile</span></div>
     </nav>
 
