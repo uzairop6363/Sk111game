@@ -89,6 +89,24 @@
         <iframe src="offers.html" class="flex-1 w-full h-full border-none bg-sk-bg block"></iframe>
     </div>
 
+    <div id="supportModal" class="fixed inset-0 z-[200] bg-sk-bg hidden flex-col w-screen h-screen transition-transform duration-300 transform translate-y-full">
+        <div class="bg-sk-dark p-2 flex justify-end shadow-md shrink-0 h-[50px] items-center">
+            <button onclick="closeModal('supportModal')" class="text-white w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+        <iframe src="support.html" class="flex-1 w-full h-full border-none bg-sk-bg block"></iframe>
+    </div>
+
+    <div id="profileModal" class="fixed inset-0 z-[200] bg-sk-bg hidden flex-col w-screen h-screen transition-transform duration-300 transform translate-y-full">
+        <div class="bg-sk-dark p-2 flex justify-end shadow-md shrink-0 h-[50px] items-center">
+            <button onclick="closeModal('profileModal')" class="text-white w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+        <iframe src="profile.html" class="flex-1 w-full h-full border-none bg-sk-bg block"></iframe>
+    </div>
+
     <div id="eventPopup" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm hidden">
         <div class="popup-content popup-active relative w-[90%] max-w-sm bg-sk-dark border-2 border-sk-gold rounded-xl overflow-hidden shadow-2xl">
             <button onclick="closeEventPopup()" class="absolute top-2 right-2 bg-black/60 rounded-full w-7 h-7 flex items-center justify-center text-white z-20 border border-white/20"><i class="fa-solid fa-xmark"></i></button>
@@ -166,8 +184,9 @@
         
         <div onclick="openModal('depositModal')" class="flex flex-col items-center text-gray-400 hover:text-white transition cursor-pointer"><i class="fa-solid fa-wallet text-xl mb-1"></i><span class="text-[9px]">Deposit</span></div>
         
-        <div class="flex flex-col items-center text-gray-400 hover:text-white transition"><i class="fa-solid fa-headset text-xl mb-1"></i><span class="text-[9px]">Support</span></div>
-        <div class="flex flex-col items-center text-gray-400 hover:text-white transition"><i class="fa-regular fa-user text-xl mb-1"></i><span class="text-[9px]">Profile</span></div>
+        <div onclick="openModal('supportModal')" class="flex flex-col items-center text-gray-400 hover:text-white transition cursor-pointer"><i class="fa-solid fa-headset text-xl mb-1"></i><span class="text-[9px]">Support</span></div>
+        
+        <div onclick="openModal('profileModal')" class="flex flex-col items-center text-gray-400 hover:text-white transition cursor-pointer"><i class="fa-regular fa-user text-xl mb-1"></i><span class="text-[9px]">Profile</span></div>
     </nav>
 
     <div id="authPopup" class="fixed inset-0 z-[110] flex items-center justify-center bg-black/90 backdrop-blur-sm hidden">
@@ -250,13 +269,12 @@
         }
         if(slides.length > 0) { setInterval(nextSlide, 3000); }
 
-        // === UNIFIED MODAL LOGIC (Deposit & Offers) ===
+        // === UNIFIED MODAL LOGIC (Deposit, Offers, Support, Profile) ===
         function openModal(modalId) {
             if (modalId === 'authPopup') {
                 document.getElementById('authPopup').style.display = 'flex';
                 return;
             }
-            // For Slide-up Modals (Deposit & Offers)
             const modal = document.getElementById(modalId);
             modal.classList.remove('hidden');
             requestAnimationFrame(() => {
