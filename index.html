@@ -31,9 +31,11 @@
             filter: drop-shadow(0 2px 2px rgba(0,0,0,0.5));
         }
 
+        /* Popup Bounce Animation */
         @keyframes bounceIn { 0% { transform: scale(0.3); opacity: 0; } 50% { transform: scale(1.05); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
         .popup-active { animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
 
+        /* Slide Up Animation for Bottom Bar */
         @keyframes slideUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         .slide-up-active { animation: slideUp 0.5s ease-out forwards; }
     </style>
@@ -62,13 +64,29 @@
                 <span class="text-sk-gold font-bold text-xs">0.00</span>
                 <i class="fa-solid fa-arrows-rotate text-gray-400 text-[10px] ml-auto mr-1 cursor-pointer hover:text-white transition hover:rotate-180"></i>
             </div>
-            <button onclick="openDepositModal()" class="relative bg-gradient-to-b from-yellow-300 to-yellow-500 text-black text-xs font-bold px-3 py-1.5 rounded-lg shadow-lg border border-white/20">
+            <button onclick="openModal('depositModal')" class="relative bg-gradient-to-b from-yellow-300 to-yellow-500 text-black text-xs font-bold px-3 py-1.5 rounded-lg shadow-lg border border-white/20">
                 Deposit
                 <span class="absolute -top-2 -right-1 bg-red-600 text-white text-[8px] font-bold px-1 rounded-bl-lg rounded-tr-lg border border-white/50 shadow">+1%</span>
             </button>
         </div>
-    </header><div id="depositModal" class="fixed inset-0 z-[200] bg-sk-bg hidden w-screen h-screen">
-        <iframe src="deposit.html" class="w-full h-full border-none block"></iframe>
+    </header>
+
+    <div id="depositModal" class="fixed inset-0 z-[200] bg-sk-bg hidden flex-col w-screen h-screen transition-transform duration-300 transform translate-y-full">
+        <div class="bg-sk-dark p-2 flex justify-end shadow-md shrink-0 h-[50px] items-center">
+            <button onclick="closeModal('depositModal')" class="text-white w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+        <iframe src="deposit.html" class="flex-1 w-full h-full border-none bg-sk-bg block"></iframe>
+    </div>
+
+    <div id="offersModal" class="fixed inset-0 z-[200] bg-sk-bg hidden flex-col w-screen h-screen transition-transform duration-300 transform translate-y-full">
+        <div class="bg-sk-dark p-2 flex justify-end shadow-md shrink-0 h-[50px] items-center">
+            <button onclick="closeModal('offersModal')" class="text-white w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+        <iframe src="offers.html" class="flex-1 w-full h-full border-none bg-sk-bg block"></iframe>
     </div>
 
     <div id="eventPopup" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm hidden">
@@ -97,126 +115,59 @@
             <button class="flex-1 bg-transparent border border-sk-yellow text-sk-yellow text-[10px] font-bold py-2 rounded flex items-center justify-center gap-1"><i class="fa-brands fa-apple"></i> Add a desktop shortcut</button>
             <button class="flex-1 bg-sk-yellow text-black text-[10px] font-bold py-2 rounded flex items-center justify-center gap-1 shadow-[0_0_10px_#ffff00aa]"><i class="fa-brands fa-android"></i> Download APP</button>
         </div>
-    </div><main class="pt-[95px] px-2 space-y-3">
-        
+    </div>
+
+    <main class="pt-[95px] px-2 space-y-3">
         <div class="relative w-full aspect-[2/1] rounded-xl overflow-hidden border border-sk-gold/50 shadow-lg bg-sk-dark">
             <div id="hero-slider" class="relative w-full h-full">
-                <img src="header1.jpg" class="slider-image absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100" alt="Banner 1">
-                <img src="header2.jpg" class="slider-image absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Banner 2">
-                <img src="header3.jpg" class="slider-image absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" alt="Banner 3">
+                <img src="header1.jpg" class="slider-image absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100">
+                <img src="header2.jpg" class="slider-image absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0">
+                <img src="header3.jpg" class="slider-image absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0">
             </div>
-            <div class="absolute bottom-2 left-0 right-0 flex justify-center gap-1 z-10">
-                <div class="slider-dot w-1.5 h-1.5 rounded-full bg-white opacity-100"></div>
-                <div class="slider-dot w-1.5 h-1.5 rounded-full bg-white opacity-50"></div>
-                <div class="slider-dot w-1.5 h-1.5 rounded-full bg-white opacity-50"></div>
-            </div>
+            <div class="absolute bottom-2 left-0 right-0 flex justify-center gap-1 z-10"><div class="slider-dot w-1.5 h-1.5 rounded-full bg-white opacity-100"></div><div class="slider-dot w-1.5 h-1.5 rounded-full bg-white opacity-50"></div><div class="slider-dot w-1.5 h-1.5 rounded-full bg-white opacity-50"></div></div>
         </div>
 
         <div class="bg-black/30 rounded-full py-1 px-3 flex items-center gap-2 border border-white/10 overflow-hidden">
             <i class="fa-solid fa-bullhorn text-sk-yellow text-xs"></i>
-            <div class="flex-1 overflow-hidden relative h-[16px]">
-                <div class="absolute whitespace-nowrap animate-marquee text-xs text-gray-300">
-                    Invite 1 person and get reward up to Rs5,000! | VIP Privileges active. | Welcome to SK111.com
-                </div>
-            </div>
+            <div class="flex-1 overflow-hidden relative h-[16px]"><div class="absolute whitespace-nowrap animate-marquee text-xs text-gray-300">Invite 1 person and get reward up to Rs5,000! | VIP Privileges active. | Welcome to SK111.com</div></div>
         </div>
 
         <div class="grid grid-cols-3 gap-2">
-            <a href="https://www.bk66app.org/m/register?r=qhg6990" target="_blank" class="block h-14 rounded-lg overflow-hidden border border-white/10 relative group hover:border-sk-gold transition">
-                <img src="bk66.jpg" class="w-full h-full object-cover opacity-100 transition" alt="ZH88">
-                <span class="absolute top-0 left-0 bg-sk-red text-[8px] px-1 font-bold text-white z-10">NEW</span>
-            </a>
-            <a href="https://666w66.com" target="_blank" class="block h-14 rounded-lg overflow-hidden border border-white/10 relative group hover:border-sk-gold transition">
-                <img src="666w.jpg" class="w-full h-full object-cover opacity-100 transition" alt="777AD">
-            </a>
-            <a href="https://666p6.com" target="_blank" class="block h-14 rounded-lg overflow-hidden border border-white/10 relative group hover:border-sk-gold transition">
-                <img src="666p.jpg" class="w-full h-full object-cover opacity-100 transition" alt="777FE">
-            </a>
-        </div><div class="flex items-center gap-3 overflow-x-auto no-scrollbar py-2 px-1">
-            <button onclick="filterGames('hot')" id="tab-hot" class="category-btn flex flex-col items-center min-w-[55px] gap-1 group">
-                <div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center shadow-[0_0_10px_#ffd700] border-2 border-yellow-400">
-                    <img src="hot.jpg" alt="Hot" class="w-full h-full object-contain">
-                </div>
-                <span class="text-[10px] font-bold text-white">Hot</span>
-            </button>
+            <a href="https://www.bk66app.org/m/register?r=qhg6990" target="_blank" class="block h-14 rounded-lg overflow-hidden border border-white/10 relative group hover:border-sk-gold transition"><img src="bk66.jpg" class="w-full h-full object-cover opacity-100 transition"><span class="absolute top-0 left-0 bg-sk-red text-[8px] px-1 font-bold text-white z-10">NEW</span></a>
+            <a href="https://666w66.com" target="_blank" class="block h-14 rounded-lg overflow-hidden border border-white/10 relative group hover:border-sk-gold transition"><img src="666w.jpg" class="w-full h-full object-cover opacity-100 transition"></a>
+            <a href="https://666p6.com" target="_blank" class="block h-14 rounded-lg overflow-hidden border border-white/10 relative group hover:border-sk-gold transition"><img src="666p.jpg" class="w-full h-full object-cover opacity-100 transition"></a>
+        </div>
 
-            <button onclick="filterGames('slots')" id="tab-slots" class="category-btn flex flex-col items-center min-w-[55px] gap-1">
-                <div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400">
-                    <img src="slot.jpg" alt="Slot" class="w-full h-full object-contain">
-                </div>
-                <span class="text-[10px] text-gray-400">Slot</span>
-            </button>
-
-            <button onclick="filterGames('cards')" id="tab-cards" class="category-btn flex flex-col items-center min-w-[55px] gap-1">
-                <div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400">
-                    <img src="cards.jpg" alt="Cards" class="w-full h-full object-contain">
-                </div>
-                <span class="text-[10px] text-gray-400">Cards</span>
-            </button>
-
-            <button onclick="filterGames('blockchain')" id="tab-blockchain" class="category-btn flex flex-col items-center min-w-[55px] gap-1">
-                <div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400">
-                    <img src="blockchain.jpg" alt="Blockchain" class="w-full h-full object-contain">
-                </div>
-                <span class="text-[10px] text-gray-400">Blockchain</span>
-            </button>
-
-            <button onclick="filterGames('fishing')" id="tab-fishing" class="category-btn flex flex-col items-center min-w-[55px] gap-1">
-                <div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400">
-                    <img src="fishing.jpg" alt="Fishing" class="w-full h-full object-contain">
-                </div>
-                <span class="text-[10px] text-gray-400">Fishing</span>
-            </button>
-
-            <button onclick="filterGames('live')" id="tab-live" class="category-btn flex flex-col items-center min-w-[55px] gap-1">
-                <div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400">
-                    <img src="live.jpg" alt="Live" class="w-full h-full object-contain">
-                </div>
-                <span class="text-[10px] text-gray-400">Live</span>
-            </button>
-
-            <button onclick="filterGames('sports')" id="tab-sports" class="category-btn flex flex-col items-center min-w-[55px] gap-1">
-                <div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400">
-                    <img src="sports.jpg" alt="Sports" class="w-full h-full object-contain">
-                </div>
-                <span class="text-[10px] text-gray-400">Sports</span>
-            </button>
+        <div class="flex items-center gap-3 overflow-x-auto no-scrollbar py-2 px-1">
+            <button onclick="filterGames('hot')" id="tab-hot" class="category-btn flex flex-col items-center min-w-[55px] gap-1 group"><div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center shadow-[0_0_10px_#ffd700] border-2 border-yellow-400"><img src="hot.jpg" class="w-full h-full object-contain"></div><span class="text-[10px] font-bold text-white">Hot</span></button>
+            <button onclick="filterGames('slots')" id="tab-slots" class="category-btn flex flex-col items-center min-w-[55px] gap-1"><div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400"><img src="slot.jpg" class="w-full h-full object-contain"></div><span class="text-[10px] text-gray-400">Slot</span></button>
+            <button onclick="filterGames('cards')" id="tab-cards" class="category-btn flex flex-col items-center min-w-[55px] gap-1"><div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400"><img src="cards.jpg" class="w-full h-full object-contain"></div><span class="text-[10px] text-gray-400">Cards</span></button>
+            <button onclick="filterGames('blockchain')" id="tab-blockchain" class="category-btn flex flex-col items-center min-w-[55px] gap-1"><div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400"><img src="blockchain.jpg" class="w-full h-full object-contain"></div><span class="text-[10px] text-gray-400">Blockchain</span></button>
+            <button onclick="filterGames('fishing')" id="tab-fishing" class="category-btn flex flex-col items-center min-w-[55px] gap-1"><div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400"><img src="fishing.jpg" class="w-full h-full object-contain"></div><span class="text-[10px] text-gray-400">Fishing</span></button>
+            <button onclick="filterGames('live')" id="tab-live" class="category-btn flex flex-col items-center min-w-[55px] gap-1"><div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400"><img src="live.jpg" class="w-full h-full object-contain"></div><span class="text-[10px] text-gray-400">Live</span></button>
+            <button onclick="filterGames('sports')" id="tab-sports" class="category-btn flex flex-col items-center min-w-[55px] gap-1"><div class="icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center border border-gray-400"><img src="sports.jpg" class="w-full h-full object-contain"></div><span class="text-[10px] text-gray-400">Sports</span></button>
         </div>
 
         <div class="relative w-full h-32 rounded-lg overflow-hidden shadow-[0_0_15px_#ffd70033] flex flex-col items-center justify-center border border-sk-gold/50 my-2 bg-sk-dark">
             <img src="jackpot.jpg" class="absolute inset-0 w-full h-full object-cover z-0" alt="Jackpot Background">
             <div class="relative z-10 text-center">
                 <h3 class="text-sk-gold text-[10px] font-black uppercase tracking-[0.2em] mb-0.5 drop-shadow-md">Jackpot Pool</h3>
-                <div id="jackpot-counter" class="text-[22px] font-black text-gold-gradient font-mono tracking-wider drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)] tabular-nums leading-none">
-                    179,130,414.71
-                </div>
+                <div id="jackpot-counter" class="text-[22px] font-black text-gold-gradient font-mono tracking-wider drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)] tabular-nums leading-none">179,130,414.71</div>
             </div>
         </div>
 
-        <div id="games-container" class="grid grid-cols-3 gap-2 pb-4">
-            </div>
+        <div id="games-container" class="grid grid-cols-3 gap-2 pb-4"></div>
+    </main>
 
-    </main><nav class="fixed bottom-0 w-full bg-sk-dark border-t border-sk-input h-[65px] flex justify-around items-center pb-1 z-[50]">
-        <div class="flex flex-col items-center text-sk-yellow">
-            <i class="fa-solid fa-house text-xl mb-1"></i>
-            <span class="text-[9px]">Home</span>
-        </div>
-        <div class="flex flex-col items-center text-gray-400 hover:text-white transition">
-            <i class="fa-solid fa-gift text-xl mb-1"></i>
-            <span class="text-[9px]">Offers</span>
-        </div>
-        <div onclick="openDepositModal()" class="flex flex-col items-center text-gray-400 hover:text-white transition cursor-pointer">
-            <i class="fa-solid fa-wallet text-xl mb-1"></i>
-            <span class="text-[9px]">Deposit</span>
-        </div>
-        <div class="flex flex-col items-center text-gray-400 hover:text-white transition">
-            <i class="fa-solid fa-headset text-xl mb-1"></i>
-            <span class="text-[9px]">Support</span>
-        </div>
-        <div class="flex flex-col items-center text-gray-400 hover:text-white transition">
-            <i class="fa-regular fa-user text-xl mb-1"></i>
-            <span class="text-[9px]">Profile</span>
-        </div>
+    <nav class="fixed bottom-0 w-full bg-sk-dark border-t border-sk-input h-[65px] flex justify-around items-center pb-1 z-[50]">
+        <div class="flex flex-col items-center text-sk-yellow"><i class="fa-solid fa-house text-xl mb-1"></i><span class="text-[9px]">Home</span></div>
+        
+        <div onclick="openModal('offersModal')" class="flex flex-col items-center text-gray-400 hover:text-white transition cursor-pointer"><i class="fa-solid fa-gift text-xl mb-1"></i><span class="text-[9px]">Offers</span></div>
+        
+        <div onclick="openModal('depositModal')" class="flex flex-col items-center text-gray-400 hover:text-white transition cursor-pointer"><i class="fa-solid fa-wallet text-xl mb-1"></i><span class="text-[9px]">Deposit</span></div>
+        
+        <div class="flex flex-col items-center text-gray-400 hover:text-white transition"><i class="fa-solid fa-headset text-xl mb-1"></i><span class="text-[9px]">Support</span></div>
+        <div class="flex flex-col items-center text-gray-400 hover:text-white transition"><i class="fa-regular fa-user text-xl mb-1"></i><span class="text-[9px]">Profile</span></div>
     </nav>
 
     <div id="authPopup" class="fixed inset-0 z-[110] flex items-center justify-center bg-black/90 backdrop-blur-sm hidden">
@@ -228,7 +179,7 @@
     </div>
 
     <script>
-        // 1. GAME DATA
+        // === GAME DATA ===
         const gamesDB = [
             { name: 'Aviator', type: 'hot', img: 'aviator.jpg', hot: true },
             { name: 'Money Coming', type: 'hot', img: 'money.jpg', hot: true },
@@ -239,7 +190,6 @@
             { name: 'Plinko', type: 'hot', img: 'plinko.jpg', hot: true },
             { name: 'Super Fruits', type: 'hot', img: 'superfruits.jpg', hot: true },
             { name: 'Fortune Gems', type: 'hot', img: 'fortune.jpg', hot: true },
-            // Placeholder data
             { name: 'Teen Patti', type: 'cards', img: 'cards.jpg', hot: false },
             { name: 'Crypto Crash', type: 'blockchain', img: 'blockchain.jpg', hot: false },
             { name: 'Mega Fishing', type: 'fishing', img: 'fishing.jpg', hot: false },
@@ -247,7 +197,6 @@
             { name: 'Football Bet', type: 'sports', img: 'sports.jpg', hot: false },
         ];
 
-        // Filter Games Function
         function filterGames(category) {
             const container = document.getElementById('games-container');
             const buttons = document.querySelectorAll('.category-btn');
@@ -255,7 +204,6 @@
             buttons.forEach(btn => {
                 const iconBox = btn.querySelector('.icon-box');
                 const text = btn.querySelector('span');
-
                 if(btn.id === 'tab-' + category) {
                     iconBox.className = 'icon-box w-12 h-12 rounded-full bg-white p-2 flex items-center justify-center shadow-[0_0_10px_#ffd700] border-2 border-yellow-400 transition-all';
                     text.className = 'text-[10px] text-white font-bold';
@@ -279,22 +227,19 @@
             });
         }
 
-        // 2. JACKPOT ANIMATION
+        // Jackpot Animation
         let jackpotValue = 179130414.71;
         function animateJackpot() {
             jackpotValue += (Math.random() * 0.8) - 0.2;
-            document.getElementById('jackpot-counter').innerText = jackpotValue.toLocaleString('en-US', {
-                minimumFractionDigits: 2, maximumFractionDigits: 2
-            });
+            document.getElementById('jackpot-counter').innerText = jackpotValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             requestAnimationFrame(animateJackpot);
         }
 
-        // 3. SLIDER ANIMATION
+        // Slider Animation
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slider-image');
         const dots = document.querySelectorAll('.slider-dot');
         const totalSlides = slides.length;
-
         function nextSlide() {
             if (slides.length === 0) return;
             slides[currentSlide].classList.replace('opacity-100', 'opacity-0');
@@ -303,21 +248,31 @@
             slides[currentSlide].classList.replace('opacity-0', 'opacity-100');
             dots[currentSlide].classList.replace('opacity-50', 'opacity-100');
         }
+        if(slides.length > 0) { setInterval(nextSlide, 3000); }
 
-        if(slides.length > 0) {
-            setInterval(nextSlide, 3000);
+        // === UNIFIED MODAL LOGIC (Deposit & Offers) ===
+        function openModal(modalId) {
+            if (modalId === 'authPopup') {
+                document.getElementById('authPopup').style.display = 'flex';
+                return;
+            }
+            // For Slide-up Modals (Deposit & Offers)
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('hidden');
+            requestAnimationFrame(() => {
+                modal.classList.remove('translate-y-full');
+            });
         }
 
-        // 4. DEPOSIT MODAL LOGIC (INSTANT OPEN)
-        function openDepositModal() {
-            document.getElementById('depositModal').classList.remove('hidden');
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('translate-y-full');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300); // Wait for transition
         }
 
-        function closeDepositModal() {
-            document.getElementById('depositModal').classList.add('hidden');
-        }
-
-        // 5. INITIALIZATION
+        // Init
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => document.getElementById('eventPopup').style.display = 'flex', 300);
             animateJackpot();
@@ -325,7 +280,6 @@
         });
 
         function closeEventPopup() { document.getElementById('eventPopup').style.display = 'none'; }
-        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
     </script>
 </body>
 </html>
