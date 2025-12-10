@@ -432,7 +432,7 @@
 
         <div class="qr-link-container">
             <div class="qr-area">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.777xp7.com" class="qr-img" alt="QR">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://sk111vip.com/?cid=5293648" class="qr-img" alt="QR">
                 <button class="save-qr-btn">Save invitation code</button>
             </div>
 
@@ -440,10 +440,10 @@
                 <div>
                     <div class="link-label">Referral link</div>
                     <div class="link-input-wrapper">
-                        <span class="link-text">https://www.777xp7.com/?dl=ec...</span>
+                        <span class="link-text" id="referralLinkText">https://sk111vip.com/?cid=5293648</span>
                         <div style="display:flex; gap:10px; color:var(--primary-yellow);">
                             <i class="fa-solid fa-chevron-down" style="font-size:10px;"></i>
-                            <i class="fa-regular fa-copy"></i>
+                            <i class="fa-regular fa-copy" id="copyLinkBtn" style="cursor: pointer;"></i>
                         </div>
                     </div>
                 </div>
@@ -574,6 +574,50 @@
             <span>Profile</span>
         </a>
     </nav>
+
+    <script>
+        document.getElementById('copyLinkBtn').addEventListener('click', function() {
+            // The exact link you want to copy
+            const linkToCopy = "https://sk111vip.com/?cid=5293648";
+            
+            // Modern Clipboard API
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(linkToCopy).then(function() {
+                    alert("Copy successful: " + linkToCopy);
+                }, function(err) {
+                    // Fail case fallback
+                    fallbackCopyTextToClipboard(linkToCopy);
+                });
+            } else {
+                // Fallback for older browsers
+                fallbackCopyTextToClipboard(linkToCopy);
+            }
+        });
+
+        function fallbackCopyTextToClipboard(text) {
+            var textArea = document.createElement("textarea");
+            textArea.value = text;
+            
+            // Avoid scrolling to bottom
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.position = "fixed";
+
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                var successful = document.execCommand('copy');
+                var msg = successful ? 'successful' : 'unsuccessful';
+                alert('Copy ' + msg + ": " + text);
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+            }
+
+            document.body.removeChild(textArea);
+        }
+    </script>
 
 </body>
 </html>
